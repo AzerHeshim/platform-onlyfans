@@ -9,13 +9,16 @@
     </div>
   </div>
   <div class="profile_content">
-    <div class="empty"></div>
+    <div class="empty">
+      <button type="button" class="btn btn-primary" (click)="openModalWithComponent()">Create modal with component</button>
+
+    </div>
     <div class="main_content">
       <div class="profile_entry">
         <div class="profile_cover">
           <div class="short_data">
             <div class="back_name d-flex align-items-center">
-              <img class="back" src="assets/icons/back.svg" alt="">
+              <img class="back pointer" src="assets/icons/back.svg" alt="">
               <div class="">
                 <div class="d-flex align-items-center">
                   <p class="name">Eva Jackson</p>
@@ -30,12 +33,12 @@
                 </div>
               </div>
             </div>
-            <img class="more" src="assets/icons/charm_menu.svg" alt="">
+            <img class="more pointer" src="assets/icons/charm_menu.svg" alt="">
           </div>
 
         </div>
         <div class="avatar_actions">
-        <div class="avatar">
+        <div class="avatar pointer">
           <div class="online"></div>
         </div>
           <div class="actions d-flex align-items-center">
@@ -75,13 +78,13 @@
             </div>
           </div>
           <div class="navigates d-flex align-items-center">
-            <div class="navigate_item">
+            <div class="navigate_item pointer">
               <p>Stories</p>
             </div>
-            <div class="navigate_item navigate_item2">
+            <div class="navigate_item navigate_item2 pointer">
               <p>Videos</p>
             </div>
-            <div class="navigate_item navigate_item3">
+            <div class="navigate_item navigate_item3 pointer">
               <p>Stories</p>
             </div>
           </div>
@@ -131,7 +134,7 @@
                 <p class="username_sm">@thatonegirl</p>
               </div>
             </div>
-            <p class="post_date">Yesterday</p>
+            <p class="post_date">2 hours ago</p>
           </div>
           <p class="post_desc">I made my makeup match my outfit 😇💖</p>
         </div>
@@ -155,7 +158,7 @@
             <img src="assets/icons/ant-design_dollar-circle-outlined.svg" alt="">
             <p>SEND TIP</p>
           </div>
-          <img src="assets/icons/book.svg" alt="">
+          <img class="pointer" src="assets/icons/book.svg" alt="">
         </div>
         <p class="content_pad">150 likes</p>
         <hr>
@@ -173,7 +176,7 @@
                   <p class="username_sm">@thatonegirl</p>
                 </div>
               </div>
-              <p class="post_date">28 May</p>
+              <p class="post_date">5 hours ago</p>
             </div>
             <p class="post_desc">Deep dish, thin crust, or topped with pineapple, @bigmouthbella loves it all. Join Bella as she shares everything she knows about her all-time favorite topic: pizza! 🍕</p>
           </div>
@@ -187,7 +190,7 @@
               <img src="assets/icons/ant-design_dollar-circle-outlined.svg" alt="">
               <p>SEND TIP</p>
             </div>
-            <img src="assets/icons/book.svg" alt="">
+            <img class="pointer" src="assets/icons/book.svg" alt="">
           </div>
           <p class="content_pad">98 likes</p>
           <hr>
@@ -205,7 +208,7 @@
                   <p class="username_sm">@thatonegirl</p>
                 </div>
               </div>
-              <p class="post_date">22 May</p>
+              <p class="post_date">12 hours ago</p>
             </div>
             <p class="post_desc">Deep dish, thin crust, or topped with pineapple, @bigmouthbella loves it all. Join Bella as she shares everything she knows about her all-time favorite topic: pizza! 🍕</p>
           </div>
@@ -219,7 +222,7 @@
               <img src="assets/icons/ant-design_dollar-circle-outlined.svg" alt="">
               <p>SEND TIP</p>
             </div>
-            <img src="assets/icons/book.svg" alt="">
+            <img class="pointer" src="assets/icons/book.svg" alt="">
           </div>
           <p class="content_pad">73 likes</p>
           <hr>
@@ -251,13 +254,55 @@
               <img src="assets/icons/ant-design_dollar-circle-outlined.svg" alt="">
               <p>SEND TIP</p>
             </div>
-            <img src="assets/icons/book.svg" alt="">
+            <img class="pointer" src="assets/icons/book.svg" alt="">
           </div>
           <p class="content_pad">73 likes</p>
           <hr>
         </div>
       </div>
     </div>
-    <div class="side_content"></div>
+    <div class="side_content">
+      <div class="side_content_data">
+        <div class="search_input">
+          <p>Search</p>
+          <img src="assets/icons/bx_searchlight.svg" alt="">
+        </div>
+        <div class="recents">
+          <p>RECENTS</p>
+          <div class="d-flex align-items-center gap-2 mt-2">
+            <img src="assets/images/female.svg" alt="">
+            <img src="assets/images/female.svg" alt="">
+            <img src="assets/images/female.svg" alt="">
+          </div>
+        </div>
+        <div class="recents">
+          <p>FRİENDS</p>
+          <div class="d-flex align-items-center gap-2 mt-2">
+            <div class="sm_profile_info">
+              <img class="prof_cover_sm pointer" src="assets/images/profile_cover.svg" alt="">
+              <img  class="prof_avatar_sm pointer" src="assets/images/Profileavatarsm.svg" alt="">
+              <div class="sm_prof_name">
+                <div class="d-flex align-items-center justify-content-center">
+                  <p class="name_xs">Eva Jackson</p>
+                  <img class="tick_sm" src="assets/icons/charm_circle-tick-dark.svg" alt="">
+                </div>
+                <p class="username_sm">@thatonegirl</p>
+              </div>
+            </div>
+            <div class="sm_profile_info">
+              <img class="prof_cover_sm" src="assets/images/profile_cover.svg" alt="">
+              <img  class="prof_avatar_sm" src="assets/images/Profileavatarsm.svg" alt="">
+              <div class="sm_prof_name">
+                <div class="d-flex align-items-center justify-content-center">
+                  <p class="name_xs">Eva Jackson</p>
+                  <img class="tick_sm" src="assets/icons/charm_circle-tick-dark.svg" alt="">
+                </div>
+                <p class="username_sm">@thatonegirl</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

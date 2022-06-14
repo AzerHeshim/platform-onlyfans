@@ -1,0 +1,161 @@
+@import "../ui-elements/base/variables";
+@import "../ui-elements/base/fonts";
+
+::ng-deep.modal.show .modal-dialog{
+  max-width: 750px;
+}
+
+.profile_modal{
+  padding: 16px;
+}
+
+.modal_head{
+ font-size: 20px;
+  font-weight: bolder;
+  margin-bottom: 16px;
+  color: #9F9F9F;
+}
+
+.modal_content{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.profile_brief_info, .profile_sub_stepper{
+  height: 300px;
+  border-radius: 4px;
+  border: 1px solid #E9E9E9;
+  overflow: hidden;
+}
+
+.profile_sm_cover{
+  height: 100px;
+  width: 100%;
+  background: url("../../assets/images/profile_coverjpg.jpg");
+  background-size: cover;
+  position: relative;
+  margin-bottom: 60px;
+}
+
+.avatar_name{
+  position: absolute;
+  bottom: -68px;
+  left: 14px;
+  img{
+    margin-right: 8px;
+    position: relative;
+    bottom: 19px;
+    width: 68px;
+  }
+  p:first-child{
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 0px;
+  }
+  p:last-child{
+    font-size: 12px;
+    color: #969696;
+  }
+}
+
+.profile_advantages{
+  padding: 0 16px;
+}
+.subs_head{
+  font-size: 14px;
+  color: #9F9F9F;
+  margin-bottom: 14px;
+}
+
+.div div p{
+  font-size: 13px;
+  margin-bottom: 0;
+  font-weight: bolder;
+}
+
+.div div{
+  margin-bottom: 8px;
+}
+
+
+::ng-deep.stepper-header .steps {
+  padding: 4px;
+}
+
+::ng-deep.stepper-header .steps .step .step-bullet{
+  background: #C3DAF6 !important;
+}
+
+::ng-deep.stepper-header .steps .step .step-bullet {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 22px !important;
+  width: 44px !important;
+  background-color: #b3babe;
+  border-radius: 2px !important;
+  color: #fff;
+  font-size: 14px !important;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+::ng-deep.stepper-header .steps .step .step-title{
+  display: none;
+}
+
+::ng-deep .stepper-header .steps .step.completed .step-bullet{
+  background: #C3DAF6 !important;
+}
+
+::ng-deep.stepper-header .steps .step.active .step-bullet{
+  background: #4395D0 !important;
+}
+
+.step_header{
+  font-size: 18px;
+  line-height: 21px;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.stepper_generic{
+  height: 48px;
+  border-radius: 4px;
+  background: $main_accent;
+  color: white;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+.gender_options{
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+  p{
+    margin: 0;
+  }
+}
+
+.first_step{
+  width: 100%;
+  margin-top: 32px;
+}
+.timepicker{
+  width: 100%;
+  height: 48px;
+  border-radius: 4px;
+  border: 1px solid #E9E9E9;
+  padding: 0 16px;
+}

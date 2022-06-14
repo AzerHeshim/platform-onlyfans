@@ -1,0 +1,141 @@
+<div class="profile_modal">
+  <h2 class="modal_head">SUBSCRIBE</h2>
+  <div class="modal_content">
+    <div class="profile_brief_info">
+      <div class="profile_sm_cover">
+        <div class="avatar_name d-flex align-items-center">
+          <img src="assets/images/Profileavatarsm.svg" alt="">
+          <div>
+            <p>Eva Jackson</p>
+            <p>@thatonegirl</p>
+          </div>
+        </div>
+      </div>
+      <div class="profile_advantages">
+      <p class="subs_head">SUBSCRIBE AND GET THESE BENEFITS:</p>
+        <div class="div">
+          <div class="d-flex align-items-center">
+            <img src="assets/icons/bi_check.svg" alt="">
+            <p>Full access to this user's content</p>
+          </div>
+          <div class="d-flex align-items-center">
+            <img src="assets/icons/bi_check.svg" alt="">
+            <p>Full access to this user's content</p>
+          </div>
+          <div class="d-flex align-items-center">
+            <img src="assets/icons/bi_check.svg" alt="">
+            <p>Full access to this user's content</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="profile_sub_stepper">
+      <ng-stepper #cdkStepper [linear]="true" >
+        <cdk-step #activeStepIndex0  [optional]="true">
+          <ng-template cdkStepLabel>
+            <div class="step-bullet">1</div>
+          </ng-template>
+          <div class="step_one">
+            <p class="step_header">This website is for adults only</p>
+            <p class="step_header">Are you over 18 years old?</p>
+            <button class="stepper_generic first_step" (click)="next(cdkStepper)"> Yes, proceed</button>
+          </div>
+
+        </cdk-step>
+
+        <cdk-step  [optional]="true">
+          <ng-template cdkStepLabel>
+            <div class="step-bullet">2</div>
+          </ng-template>
+          <div class="step_two">
+            <p class="step_header">What is your gender? </p>
+            <div class="gender_options">
+              <div class="gender_option_item stepper_generic"  (click)="next(cdkStepper)">
+                <p>Male</p>
+              </div>
+              <div class="gender_option_item stepper_generic" (click)="next(cdkStepper)">
+                <p>Female</p>
+              </div>
+            </div>
+          </div>
+        </cdk-step>
+
+        <cdk-step [optional]="true">
+          <ng-template cdkStepLabel>
+            <div class="step-bullet">3</div>
+          </ng-template>
+          <div class="step_three">
+            <p class="step_header">Do you want to receive private pictures?</p>
+            <p class="step_header">Your birthday :</p>
+<!--            <div class="birthday">-->
+<!--              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="01" >-->
+<!--              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="01" >-->
+<!--              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="2000" >-->
+<!--            </div>-->
+            <input type="date" class="timepicker">
+          </div>
+        </cdk-step>
+
+        <cdk-step [optional]="true">
+          <ng-template cdkStepLabel>
+            <div class="step-bullet">4</div>
+
+          </ng-template>
+          <div class="step_four">
+            <p class="step_header">What’re you looking for</p>
+            <div class="gender_options">
+              <div class="gender_option_item stepper_generic" (click)="next(cdkStepper)">
+                <img src="assets/icons/fa-solid_male.svg" alt="">
+                <p>Male</p>
+              </div>
+              <div class="gender_option_item stepper_generic" (click)="next(cdkStepper)">
+                <img src="assets/icons/fa-solid_female.svg" alt="">
+                <p>Female</p>
+              </div>
+            </div>
+          </div>
+        </cdk-step>
+        <cdk-step [optional]="true">
+          <ng-template cdkStepLabel>
+            <div class="step-bullet">5</div>
+          </ng-template>
+          <div class="step_five">
+            <p class="step_header">Your location:</p>
+            <ng-select (ngModelChange)="addressAdded = true" [(ngModel)]="selectedCity" [appearance]="'outline'" class="ng-select ng_input" [placeholder]="'Enter city name'">
+              <ng-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ng-option>
+            </ng-select>
+            <p *ngIf="!addressAdded && !selectedCity" class="validation">Please provide address</p>
+            <button class="next"  [ngClass]="!addressAdded ? 'disable' : 'next'" (click)="next(cdkStepper)">Next</button>
+          </div>
+        </cdk-step>
+        <cdk-step [optional]="true">
+          <ng-template cdkStepLabel>
+            <div class="step-bullet">6</div>
+          </ng-template>
+
+          <div class="step_six">
+            <p class="step_header">Your username and password:</p>
+            <input type="text" class="input_item" placeholder="Username">
+            <input type="password" class="input_item" placeholder="Password">
+            <button class="next" (click)="next(cdkStepper)">Next</button>
+          </div>
+        </cdk-step>
+        <cdk-step [optional]="true">
+          <ng-template cdkStepLabel>
+            <div class="step-bullet">7</div>
+          </ng-template>
+
+          <div class="step_seven">
+            <p class="step_header">Your birthday :</p>
+            <div class="birthday">
+              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="01" >
+              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="01" >
+              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="2000" >
+            </div>
+            <button class="next" (click)="next(cdkStepper)">Next</button>
+          </div>
+        </cdk-step>
+      </ng-stepper>
+    </div>
+  </div>
+</div>
