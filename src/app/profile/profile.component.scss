@@ -205,6 +205,7 @@
     position: absolute;
     bottom: 10px;
     left: 10px;
+    margin: 0;
   }
 }
 .navigate_item2{
@@ -370,7 +371,7 @@ hr{
   }
 }
 .side_content_data{
-  width: 50%;
+  width: 290px;
   padding: 24px 0;
 }
 .recents{
@@ -431,4 +432,33 @@ hr{
 
 .pointer{
   cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .side_content_data{
+    display: none;
+  }
+
+}
+
+@media (max-width: 768px) {
+.empty {
+  width: 0 !important;
+}
+  .side_content {
+    width: 0 !important;
+  }
+.main_content{
+  width: 100%;
+  min-width: 100% !important;
+}
+  .profile_content{
+    grid-template-columns: 1fr;
+  }
+  .tags{
+    flex-wrap: wrap;
+  }
+  .header_content {
+    padding: 0 16px;
+  }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgSelectConfig} from "@ng-select/ng-select";
+import {BsModalService} from "ngx-bootstrap/modal";
 
 @Component({
   selector: 'app-modal',
@@ -16,7 +17,7 @@ export class ModalComponent implements OnInit {
     { id: 3, name: 'Edinburgh' },
     { id: 4, name: 'Manchester' },
   ];
-  constructor(private config: NgSelectConfig) {
+  constructor(private config: NgSelectConfig, public modalService: BsModalService) {
     this.config.notFoundText = 'Custom not found';
     this.config.appendTo = 'body';
     this.config.bindValue = 'value';
@@ -28,12 +29,19 @@ export class ModalComponent implements OnInit {
     this.activeStepIndex = null;
     setTimeout(() => {
       this.activeStepIndex = e.selectedIndex + 1;
-      if (this.activeStepIndex === 5 && this.selectedCity === undefined) {
+      if (this.activeStepIndex === 4 && this.selectedCity === undefined) {
         this.addressAdded = false
       } else {
         this.addressAdded = true;
         e.next();
       }
     }, 10)
+  }
+  back(e : any) {
+    if (this.activeStepIndex !== 0) {
+      e.previous();
+    } else {
+      e.back();
+    }
   }
 }

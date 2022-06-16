@@ -65,7 +65,6 @@
             <div class="step-bullet">3</div>
           </ng-template>
           <div class="step_three">
-            <p class="step_header">Do you want to receive private pictures?</p>
             <p class="step_header">Your birthday :</p>
 <!--            <div class="birthday">-->
 <!--              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="01" >-->
@@ -73,6 +72,14 @@
 <!--              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="2000" >-->
 <!--            </div>-->
             <input type="date" class="timepicker">
+            <div class="gender_options">
+              <div class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
+                <p>Back</p>
+              </div>
+              <div class="gender_option_item stepper_generic" (click)="next(cdkStepper)">
+                <p>Next</p>
+              </div>
+            </div>
           </div>
         </cdk-step>
 
@@ -82,15 +89,17 @@
 
           </ng-template>
           <div class="step_four">
-            <p class="step_header">What’re you looking for</p>
+              <p class="step_header">Your location:</p>
+              <ng-select (ngModelChange)="addressAdded = true" [(ngModel)]="selectedCity" [appearance]="'outline'" class="ng-select ng_input" [placeholder]="'Enter city name'">
+                <ng-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ng-option>
+              </ng-select>
+              <p *ngIf="!addressAdded && !selectedCity" class="validation">Please provide address</p>
             <div class="gender_options">
-              <div class="gender_option_item stepper_generic" (click)="next(cdkStepper)">
-                <img src="assets/icons/fa-solid_male.svg" alt="">
-                <p>Male</p>
+              <div class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
+                <p>Back</p>
               </div>
-              <div class="gender_option_item stepper_generic" (click)="next(cdkStepper)">
-                <img src="assets/icons/fa-solid_female.svg" alt="">
-                <p>Female</p>
+              <div class="gender_option_item stepper_generic" [ngClass]="!addressAdded ? 'disable' : 'next'" (click)="next(cdkStepper)" >
+                <p>Next</p>
               </div>
             </div>
           </div>
@@ -100,12 +109,16 @@
             <div class="step-bullet">5</div>
           </ng-template>
           <div class="step_five">
-            <p class="step_header">Your location:</p>
-            <ng-select (ngModelChange)="addressAdded = true" [(ngModel)]="selectedCity" [appearance]="'outline'" class="ng-select ng_input" [placeholder]="'Enter city name'">
-              <ng-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ng-option>
-            </ng-select>
-            <p *ngIf="!addressAdded && !selectedCity" class="validation">Please provide address</p>
-            <button class="next"  [ngClass]="!addressAdded ? 'disable' : 'next'" (click)="next(cdkStepper)">Next</button>
+            <p class="step_header">Your username</p>
+            <input type="text" class="input_item" placeholder="Your username">
+            <div class="gender_options">
+              <div class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
+                <p>Back</p>
+              </div>
+              <div class="gender_option_item stepper_generic" (click)="next(cdkStepper)">
+                <p>Next</p>
+              </div>
+            </div>
           </div>
         </cdk-step>
         <cdk-step [optional]="true">
@@ -113,29 +126,35 @@
             <div class="step-bullet">6</div>
           </ng-template>
 
-          <div class="step_six">
-            <p class="step_header">Your username and password:</p>
-            <input type="text" class="input_item" placeholder="Username">
-            <input type="password" class="input_item" placeholder="Password">
-            <button class="next" (click)="next(cdkStepper)">Next</button>
+          <p class="step_header">Your Password</p>
+          <input type="text" class="input_item" placeholder="Your password">
+          <div class="gender_options">
+            <div class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
+              <p>Back</p>
+            </div>
+            <div class="gender_option_item stepper_generic" (click)="next(cdkStepper)">
+              <p>Next</p>
+            </div>
           </div>
         </cdk-step>
         <cdk-step [optional]="true">
           <ng-template cdkStepLabel>
             <div class="step-bullet">7</div>
           </ng-template>
-
-          <div class="step_seven">
-            <p class="step_header">Your birthday :</p>
-            <div class="birthday">
-              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="01" >
-              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="01" >
-              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="2000" >
+          <p class="step_header">Your email</p>
+          <input type="email" class="input_item" placeholder="Your Email">
+          <div class="gender_options">
+            <div class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
+              <p>Back</p>
             </div>
-            <button class="next" (click)="next(cdkStepper)">Next</button>
+            <div class="gender_option_item stepper_generic" aria-label="Close"  (click)="modalService?.hide()">
+              <p>Finish</p>
+            </div>
           </div>
         </cdk-step>
       </ng-stepper>
     </div>
   </div>
+  <hr>
+  <button class="close_modal" (click)="modalService?.hide()">Close</button>
 </div>
