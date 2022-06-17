@@ -161,7 +161,18 @@
   display: flex;
   align-items: center;
 }
-
+.birthday{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  align-items: center;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
 ::ng-deep.ng-select .ng-select-container .ng-value-container .ng-input>input{
   height: 100% !important;
 }
@@ -202,13 +213,14 @@
 }
 
 ::ng-deep.stepper-body {
-  margin: 46px auto !important;
+  margin: 30px auto !important;
   padding: 1rem;
 }
 
 .validation{
   color: red;
   margin-top: 16px;
+  margin-bottom: 0;
 }
 
 hr{
