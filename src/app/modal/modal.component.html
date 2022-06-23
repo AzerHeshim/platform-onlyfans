@@ -1,4 +1,4 @@
-<div class="profile_modal">
+<div class="profile_modal" bsModal #modal="bs-modal">
   <h2 class="modal_head">SUBSCRIBE</h2>
   <div class="modal_content">
     <div class="profile_brief_info">
@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="profile_sub_stepper">
-      <ng-stepper #cdkStepper [linear]="true" >
+      <ng-stepper #cdkStepper [linear]="true" [selectedIndex]="activeStepIndex">
         <cdk-step #activeStepIndex0  [optional]="true">
           <ng-template cdkStepLabel>
             <div class="step-bullet">1</div>
@@ -155,5 +155,5 @@
     </div>
   </div>
   <hr>
-  <button class="close_modal" (click)="modalService?.hide()">Close</button>
+  <button class="close_modal" (click)="hide()">Close</button>
 </div>

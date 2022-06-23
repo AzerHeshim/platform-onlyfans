@@ -10,6 +10,7 @@ import {BsModalService} from "ngx-bootstrap/modal";
 export class ModalComponent implements OnInit {
   activeStepIndex: any = 0;
   addressAdded= true;
+  step: any | null;
   selectedCity: number | undefined;
   cities = [
     { id: 1, name: 'London' },
@@ -24,11 +25,21 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  //   console.log(this.step, 'opop')
+  // setInterval(() => {
+  //
+  //   }, 1000);
+    // @ts-ignore
+    this.activeStepIndex = +localStorage.getItem('activeStep');
+    console.log(this.activeStepIndex)
+  }
+  hide(){
+    this.modalService?.hide()
   }
   next(e: any) {
-    this.activeStepIndex = null;
     setTimeout(() => {
       this.activeStepIndex = e.selectedIndex + 1;
+      localStorage.setItem('activeStep', this.activeStepIndex)
       if (this.activeStepIndex === 4 && this.selectedCity === undefined) {
         this.addressAdded = false
       } else {
@@ -40,7 +51,12 @@ export class ModalComponent implements OnInit {
   back(e : any) {
     if (this.activeStepIndex !== 0) {
       e.previous();
+      setTimeout(() => {
+        this.activeStepIndex = e.selectedIndex;
+        localStorage.setItem('activeStep', this.activeStepIndex)
+      }, 10)
     } else {
+
       e.back();
     }
   }

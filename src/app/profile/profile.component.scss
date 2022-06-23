@@ -20,18 +20,26 @@
   }
 }
 
+.statistics{
+  img{
+    width: 16px;
+    margin: 0 6px 0 0;
+  }
+
+}
+
 .profile_content{
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 500px 1fr;
   gap: 16px;
   justify-content: stretch;
   .empty{
     width: 100%;
   }
   .main_content{
-    min-width: 500px;
+    width: 500px;
     border-right: 1px solid #E9E9E9;
     border-left: 1px solid #E9E9E9;
   }
@@ -406,6 +414,7 @@ hr{
   border-radius: 4px;
   border: 1px solid #E9E9E9;
   position: relative;
+  overflow: hidden;
   .prof_cover_sm{
     width: 100%;
     height: 60px;
