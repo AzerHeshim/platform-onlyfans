@@ -30,6 +30,7 @@
       </div>
     </div>
     <div class="profile_sub_stepper">
+      <form [formGroup]="registrationForm" >
       <ng-stepper #cdkStepper [linear]="true" [selectedIndex]="activeStepIndex">
         <cdk-step #activeStepIndex0  [optional]="true">
           <ng-template cdkStepLabel>
@@ -50,12 +51,15 @@
           <div class="step_two">
             <p class="step_header">What is your gender? </p>
             <div class="gender_options">
-              <div class="gender_option_item stepper_generic"  (click)="next(cdkStepper)">
-                <p>Male</p>
-              </div>
-              <div class="gender_option_item stepper_generic" (click)="next(cdkStepper)">
-                <p>Female</p>
-              </div>
+              <button class="gender_option_item stepper_generic"  (click)="next(cdkStepper); onSelectGender(true)"  >
+<!--                <p formControlName="gender">Male</p>-->
+                <label class="pointer">Male</label>
+                <input class="d-none" type="text" [value]="'Male'" formControlName="gender" readonly style="border:0">
+              </button>
+              <button class="gender_option_item stepper_generic" (click)="next(cdkStepper); onSelectGender(false)" >
+                <label>Female</label>
+                <input class="d-none" type="text" [value]="'Female'" formControlName="gender" readonly style="border:0">
+              </button>
             </div>
           </div>
         </cdk-step>
@@ -67,17 +71,27 @@
           <div class="step_three">
             <p class="step_header">Your birthday :</p>
             <div class="birthday">
-              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="DD" min="0" max="999">
-              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="MM" min="0"  max="99">
-              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="YYYY" min="4"  max="2022">
+              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="DD" min="0" max="31" formControlName="day">
+              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="MM" min="0"  max="12" formControlName="month">
+              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="YYYY" min="4"  max="2022" formControlName="year">
+            </div>
+            <div class="validate" *ngIf="registrationForm.get('day')?.invalid && (registrationForm.get('day')?.dirty || registrationForm.get('day')?.touched)">
+              Pls provide a legit day
+            </div>
+            <div class="validate" *ngIf="registrationForm.get('month')?.invalid && (registrationForm.get('month')?.dirty || registrationForm.get('month')?.touched)">
+              Pls provide a legit month
+            </div>
+            <div class="validate" *ngIf="registrationForm.get('year')?.invalid && (registrationForm.get('year')?.dirty || registrationForm.get('year')?.touched)">
+              Pls provide a legit year
             </div>
             <div class="gender_options">
-              <div class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
+              <button class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
                 <p>Back</p>
-              </div>
-              <div class="gender_option_item stepper_generic" (click)="next(cdkStepper)">
+              </button>
+              <button class="gender_option_item stepper_generic" (click)="next(cdkStepper); setDOB()"  [ngClass]="{ disabled_button: (registrationForm.get('day')?.invalid || registrationForm.get('month')?.invalid  || registrationForm.get('year')?.invalid)}"
+                      [disabled]="(registrationForm.get('day')?.invalid || registrationForm.get('month')?.invalid  || registrationForm.get('year')?.invalid)">
                 <p>Next</p>
-              </div>
+              </button>
             </div>
           </div>
         </cdk-step>
@@ -89,17 +103,22 @@
           </ng-template>
           <div class="step_four">
               <p class="step_header">Your location:</p>
-              <ng-select (ngModelChange)="addressAdded = true" [(ngModel)]="selectedCity" [appearance]="'outline'" class="ng-select ng_input" [placeholder]="'Enter city name'">
-                <ng-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ng-option>
+              <ng-select (change)="getselectedAdress(selectedCity)" [items]="cities" (ngModelChange)="addressAdded = true; " (search)="getLocations($event)" #ngselect [(ngModel)]="selectedCity" [appearance]="'outline'" class="ng-select ng_input" [placeholder]="'Enter city name'"  formControlName="location" >
+                <ng-template ng-label-tmp let-city="item">
+                  <b>{{city}}</b>
+                </ng-template>
               </ng-select>
-              <p *ngIf="!addressAdded && !selectedCity" class="validation">Please provide address</p>
+            <div class="validate" *ngIf="registrationForm.get('location')?.invalid && (registrationForm.get('location')?.dirty || registrationForm.get('location')?.touched)">
+              Pls provide a legit loaction
+            </div>
             <div class="gender_options">
-              <div class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
+              <button class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)" >
                 <p>Back</p>
-              </div>
-              <div class="gender_option_item stepper_generic" [ngClass]="!addressAdded ? 'disable' : 'next'" (click)="next(cdkStepper)" >
+              </button>
+              <button class="gender_option_item stepper_generic" [ngClass]="{ disabled_button: (registrationForm.get('location')?.invalid || registrationForm.get('location')?.invalid  || registrationForm.get('location')?.invalid)}"
+                      [disabled]="(registrationForm.get('location')?.invalid || registrationForm.get('location')?.invalid  || registrationForm.get('location')?.invalid)" (click)="next(cdkStepper)" >
                 <p>Next</p>
-              </div>
+              </button>
             </div>
           </div>
         </cdk-step>
@@ -109,14 +128,18 @@
           </ng-template>
           <div class="step_five">
             <p class="step_header">Your username</p>
-            <input type="text" class="input_item" placeholder="Your username">
+            <input type="text" class="input_item" placeholder="Your username" formControlName="username">
+            <div class="validate" *ngIf="registrationForm.get('username')?.invalid && (registrationForm.get('username')?.dirty || registrationForm.get('username')?.touched)">
+              Please provide a name.
+            </div>
             <div class="gender_options">
-              <div class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
+              <button class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
                 <p>Back</p>
-              </div>
-              <div class="gender_option_item stepper_generic" (click)="next(cdkStepper)">
+              </button>
+              <button class="gender_option_item stepper_generic" (click)="next(cdkStepper)" [ngClass]="{ disabled_button: registrationForm.get('username')?.invalid }"
+                      [disabled]="registrationForm.get('username')?.invalid">
                 <p>Next</p>
-              </div>
+              </button>
             </div>
           </div>
         </cdk-step>
@@ -126,14 +149,18 @@
           </ng-template>
 
           <p class="step_header">Your Password</p>
-          <input type="password" class="input_item" placeholder="Your password">
+          <input type="password" class="input_item" placeholder="Your password" formControlName="password">
+          <div class="validate" *ngIf="registrationForm.get('password')?.invalid && (registrationForm.get('password')?.dirty || registrationForm.get('password')?.touched)">
+            Please provide a legit Password.
+          </div>
           <div class="gender_options">
-            <div class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
+            <button class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
               <p>Back</p>
-            </div>
-            <div class="gender_option_item stepper_generic" (click)="next(cdkStepper)">
+            </button>
+            <button class="gender_option_item stepper_generic" (click)="next(cdkStepper)" [ngClass]="{ disabled_button: registrationForm.get('password')?.invalid }"
+                    [disabled]="registrationForm.get('password')?.invalid">
               <p>Next</p>
-            </div>
+            </button>
           </div>
         </cdk-step>
         <cdk-step [optional]="true">
@@ -141,19 +168,31 @@
             <div class="step-bullet">7</div>
           </ng-template>
           <p class="step_header">Your email</p>
-          <input type="email" class="input_item" placeholder="Your Email">
+          <input type="email" class="input_item" placeholder="Your Email" formControlName="email">
+          <div class="validate" *ngIf="registrationForm.get('email')?.invalid && (registrationForm.get('email')?.dirty || registrationForm.get('email')?.touched)">
+            Please provide a valid email address.
+          </div>
           <div class="gender_options">
-            <div class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
+            <button class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
               <p>Back</p>
-            </div>
-            <div class="gender_option_item stepper_generic" aria-label="Close"  (click)="modalService?.hide()">
+            </button>
+            <button class="gender_option_item stepper_generic" aria-label="Close"  (click)="onSubmit(registrationForm)" [ngClass]="{ disabled_button: registrationForm.get('email')?.invalid }"
+                    [disabled]="registrationForm.get('email')?.invalid">
               <p>Finish</p>
-            </div>
+            </button>
           </div>
         </cdk-step>
       </ng-stepper>
+      </form>
     </div>
   </div>
   <hr>
   <button class="close_modal" (click)="hide()">Close</button>
 </div>
+<alert type="success" *ngIf="success" [dismissOnTimeout]="3000">
+  <strong>Well done!</strong> You successfully registered.
+</alert>
+
+<alert type="danger" *ngIf="error" >
+  <strong>Oh snap!</strong> {{errorMessage}}
+</alert>

@@ -53,6 +53,9 @@ MIT
 angular-ng-stepper
 MIT
 
+ngx-bootstrap/alert
+MIT
+
 ngx-bootstrap/component-loader
 MIT
 

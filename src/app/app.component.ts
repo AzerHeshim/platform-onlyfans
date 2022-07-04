@@ -9,8 +9,8 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
   constructor(private translate: TranslateService, private router: Router,) {
-      translate.setDefaultLang('en');
-      translate.use('en');
+      // translate.setDefaultLang('en');
+      // translate.use('en');
   }
   title = 'platform-onlyfans';
 }

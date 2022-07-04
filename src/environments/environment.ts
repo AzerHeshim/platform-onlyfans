@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // mainUrl: 'http://quantstrategy.io:3101'
+  mainUrl: 'http://18.196.7.44/api/v2'
 };
 
 /*

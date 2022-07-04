@@ -9,11 +9,13 @@ import { ModalComponent } from './modal/modal.component';
 import {CdkStepperModule} from "@angular/cdk/stepper";
 import {NgStepperModule} from "angular-ng-stepper";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {AuthInterceptor} from "./interceptors/auth.interceptor";
+import {AlertModule} from "ngx-bootstrap/alert";
 
 
 
@@ -39,9 +41,17 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    ReactiveFormsModule,
+    AlertModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

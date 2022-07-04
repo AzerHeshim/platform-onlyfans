@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChildren} from '@angular/core';
 import {NgSelectConfig} from "@ng-select/ng-select";
 import {BsModalService} from "ngx-bootstrap/modal";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AppService} from "../services/app.service";
 
 @Component({
   selector: 'app-modal',
@@ -11,53 +13,107 @@ export class ModalComponent implements OnInit {
   activeStepIndex: any = 0;
   addressAdded= true;
   step: any | null;
-  selectedCity: number | undefined;
-  cities = [
-    { id: 1, name: 'London' },
-    { id: 2, name: 'Brighton' },
-    { id: 3, name: 'Edinburgh' },
-    { id: 4, name: 'Manchester' },
-  ];
-  constructor(private config: NgSelectConfig, public modalService: BsModalService) {
+  selectedCity: string | undefined;
+  userId: any;
+  cities = [];
+  success: boolean = false;
+  error: boolean = false;
+  registrationForm!: FormGroup;
+  errorMessage :string = ''
+  constructor(private config: NgSelectConfig, public modalService: BsModalService,private fb: FormBuilder,private appService: AppService) {
     this.config.notFoundText = 'Custom not found';
     this.config.appendTo = 'body';
     this.config.bindValue = 'value';
+
+
   }
 
   ngOnInit(): void {
-  //   console.log(this.step, 'opop')
-  // setInterval(() => {
-  //
-  //   }, 1000);
     // @ts-ignore
     this.activeStepIndex = +localStorage.getItem('activeStep');
-    console.log(this.activeStepIndex)
+    this.registrationForm = this.fb.group({
+      gender: ['', Validators.required],
+      location: ['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      looking_for: [''],
+      day: ['', Validators.required, Validators.minLength(2),
+        Validators.maxLength(2)],
+      month: ['', Validators.required,Validators.minLength(2),
+        Validators.maxLength(2)],
+      year: ['', Validators.required,Validators.minLength(4),
+        Validators.maxLength(4)],
+      DOB: [''],
+      email: ['', [Validators.required, Validators.email]],
+    });
   }
+  setDOB(){
+    this.registrationForm.value.DOB = this.registrationForm.value.year + '-' + this.registrationForm.value.month + '-' + this.registrationForm.value.day
+  }
+  onSelectGender(type: boolean){
+    this.registrationForm.value.gender = type;
+  }
+
   hide(){
     this.modalService?.hide()
   }
   next(e: any) {
     setTimeout(() => {
       this.activeStepIndex = e.selectedIndex + 1;
-      localStorage.setItem('activeStep', this.activeStepIndex)
-      if (this.activeStepIndex === 4 && this.selectedCity === undefined) {
-        this.addressAdded = false
-      } else {
-        this.addressAdded = true;
         e.next();
-      }
-    }, 10)
+      localStorage.setItem('activeStep', this.activeStepIndex);
+    }, 100)
   }
   back(e : any) {
     if (this.activeStepIndex !== 0) {
       e.previous();
       setTimeout(() => {
         this.activeStepIndex = e.selectedIndex;
-        localStorage.setItem('activeStep', this.activeStepIndex)
+        localStorage.setItem('activeStep', this.activeStepIndex);
       }, 10)
     } else {
 
       e.back();
     }
+  }
+
+  onSubmit(form: FormGroup) {
+    this.startRegister(form);
+    localStorage.setItem('activeStep', '0');
+  }
+  getselectedAdress(selectedCity: string | undefined){
+    this.selectedCity = selectedCity;
+  }
+  getLocations(event: any){
+      this.appService.getLocations({site_key: 'no01', search: event.term}).subscribe((response) =>{
+        this.cities= response.Data
+      })
+  }
+  startRegister(form: FormGroup){
+    this.appService.registerStart({ username: this.registrationForm.value.username,email: this.registrationForm.value.email, site_key: 'no01'}).subscribe((response) => {
+      if(response.Status == 'ok'){
+        this.userId = response.Data;
+        const params = {
+          ...form.value
+        };
+        params.gender = this.registrationForm.value.gender == '' ? 'male' : 'female'
+        if(params.gender === 'male'){
+          params.looking_for = 'female'
+        } else if(params.gender === 'male'){
+          params.looking_for = 'male'
+
+        }
+        params.DOB = this.registrationForm.value.year + '-' + this.registrationForm.value.month + '-' + this.registrationForm.value.day
+        delete params.month;
+        delete params.day;
+        delete params.year;
+        this.appService.registerNext({...params,site_key: 'no01' },this.userId).subscribe(response => {
+          this.success =true
+        }, error => {
+          this.errorMessage = error.error.Error.message
+          this.error = true
+        })
+      }
+    });
   }
 }
