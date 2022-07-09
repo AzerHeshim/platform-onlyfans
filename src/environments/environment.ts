@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  // mainUrl: 'http://quantstrategy.io:3101'
-  mainUrl: 'http://18.196.7.44/api/v2'
+  mainUrl: 'https://iconnect247.net/api/v2'
 };
 
 /*
