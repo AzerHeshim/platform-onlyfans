@@ -71,9 +71,9 @@
           <div class="step_three">
             <p class="step_header">Your birthday :</p>
             <div class="birthday">
-              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="DD" min="0" max="31" formControlName="day">
-              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="MM" min="0"  max="12" formControlName="month">
-              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="YYYY" min="4"  max="2022" formControlName="year">
+              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="DD" min="0" max="31" formControlName="day" appTwoDigitDecimaNumber>
+              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="MM" min="0"  max="12" formControlName="month" appTwoDigitDecimaNumber>
+              <input class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="YYYY" min="1900" max="2004" formControlName="year" appFourDigitDecimaNumber>
             </div>
             <div class="validate" *ngIf="registrationForm.get('day')?.invalid && (registrationForm.get('day')?.dirty || registrationForm.get('day')?.touched)">
               Pls provide a legit day
@@ -81,8 +81,8 @@
             <div class="validate" *ngIf="registrationForm.get('month')?.invalid && (registrationForm.get('month')?.dirty || registrationForm.get('month')?.touched)">
               Pls provide a legit month
             </div>
-            <div class="validate" *ngIf="registrationForm.get('year')?.invalid && (registrationForm.get('year')?.dirty || registrationForm.get('year')?.touched)">
-              Pls provide a legit year
+            <div class="validate" *ngIf=" registrationForm.get('year')?.hasError('max') || (registrationForm.get('year')?.hasError('min'))">
+              Pls provide a legit year (Must be over 18)
             </div>
             <div class="gender_options">
               <button class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
@@ -130,7 +130,10 @@
             <p class="step_header">Your username</p>
             <input type="text" class="input_item" placeholder="Your username" formControlName="username">
             <div class="validate" *ngIf="registrationForm.get('username')?.invalid && (registrationForm.get('username')?.dirty || registrationForm.get('username')?.touched)">
-              Please provide a name.
+              Please provide a username.
+            </div>
+            <div class="validate" *ngIf="(registrationForm.get('username')?.value.length < 6) ">
+              Minimum 6 characters
             </div>
             <div class="gender_options">
               <button class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
@@ -149,9 +152,12 @@
           </ng-template>
 
           <p class="step_header">Your Password</p>
-          <input type="password" class="input_item" placeholder="Your password" formControlName="password">
+          <input [(ngModel)]="password" type="password" class="input_item" placeholder="Your password" formControlName="password">
           <div class="validate" *ngIf="registrationForm.get('password')?.invalid && (registrationForm.get('password')?.dirty || registrationForm.get('password')?.touched)">
             Please provide a legit Password.
+          </div>
+          <div class="validate" *ngIf="!hasNumber(password)" >
+            Must include a number
           </div>
           <div class="gender_options">
             <button class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">

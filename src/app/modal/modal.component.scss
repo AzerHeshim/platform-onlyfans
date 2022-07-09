@@ -101,7 +101,12 @@
   font-size: 14px !important;
   text-align: center;
   text-decoration: none;
-  cursor: pointer;
+  pointer-events: none !important;
+  cursor: default !important;
+}
+::ng-deep.stepper-header .steps .step{
+  pointer-events: none !important;
+  cursor: default !important;
 }
 
 ::ng-deep.stepper-header .steps .step .step-title{
@@ -109,11 +114,15 @@
 }
 
 ::ng-deep .stepper-header .steps .step.completed .step-bullet{
-  background: #C3DAF6 !important;
+  background: #4395D0  !important;
+  cursor:  pointer!important;
+  pointer-events: auto !important;
 }
 
 ::ng-deep.stepper-header .steps .step.active .step-bullet{
   background: #4395D0 !important;
+  cursor:  pointer!important;
+  pointer-events: auto !important;
 }
 
 .step_header{

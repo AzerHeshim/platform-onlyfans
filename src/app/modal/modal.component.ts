@@ -19,7 +19,8 @@ export class ModalComponent implements OnInit {
   success: boolean = false;
   error: boolean = false;
   registrationForm!: FormGroup;
-  errorMessage :string = ''
+  errorMessage :string = '';
+  password: string = '';
   constructor(private config: NgSelectConfig, public modalService: BsModalService,private fb: FormBuilder,private appService: AppService) {
     this.config.notFoundText = 'Custom not found';
     this.config.appendTo = 'body';
@@ -34,7 +35,7 @@ export class ModalComponent implements OnInit {
     this.registrationForm = this.fb.group({
       gender: ['', Validators.required],
       location: ['', Validators.required],
-      username: ['', Validators.required],
+      username: ['', Validators.required, Validators.minLength(6)],
       password: ['', Validators.required],
       looking_for: [''],
       day: ['', Validators.required, Validators.minLength(2),
@@ -42,7 +43,7 @@ export class ModalComponent implements OnInit {
       month: ['', Validators.required,Validators.minLength(2),
         Validators.maxLength(2)],
       year: ['', Validators.required,Validators.minLength(4),
-        Validators.maxLength(4)],
+        Validators.maxLength(4), Validators.min(2004), Validators.max(2022)],
       DOB: [''],
       email: ['', [Validators.required, Validators.email]],
     });
@@ -53,7 +54,9 @@ export class ModalComponent implements OnInit {
   onSelectGender(type: boolean){
     this.registrationForm.value.gender = type;
   }
-
+  hasNumber(password? :any) {
+    return /\d/.test(password);
+  }
   hide(){
     this.modalService?.hide()
   }
@@ -61,16 +64,12 @@ export class ModalComponent implements OnInit {
     setTimeout(() => {
       this.activeStepIndex = e.selectedIndex + 1;
         e.next();
-      localStorage.setItem('activeStep', this.activeStepIndex);
     }, 100)
   }
   back(e : any) {
     if (this.activeStepIndex !== 0) {
       e.previous();
-      setTimeout(() => {
         this.activeStepIndex = e.selectedIndex;
-        localStorage.setItem('activeStep', this.activeStepIndex);
-      }, 10)
     } else {
 
       e.back();

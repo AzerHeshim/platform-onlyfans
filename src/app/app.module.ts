@@ -16,6 +16,8 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
 import {AlertModule} from "ngx-bootstrap/alert";
+import { TwoDigitDecimaNumberDirective} from './directives/two-digit-handling.directive';
+import {FourDigitDecimaNumberDirective} from './directives/four-digit-handling.directive';
 
 
 
@@ -23,7 +25,9 @@ import {AlertModule} from "ngx-bootstrap/alert";
   declarations: [
     AppComponent,
     ProfileComponent,
-    ModalComponent
+    ModalComponent,
+    TwoDigitDecimaNumberDirective,
+    FourDigitDecimaNumberDirective
   ],
   imports: [
     BrowserModule,
