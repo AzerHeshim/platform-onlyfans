@@ -18,9 +18,11 @@ export class ModalComponent implements OnInit {
   cities = [];
   success: boolean = false;
   error: boolean = false;
+  mailError: boolean = false;
   registrationForm!: FormGroup;
   errorMessage :string = '';
   password: string = '';
+  mailValidation: string = '';
   constructor(private config: NgSelectConfig, public modalService: BsModalService,private fb: FormBuilder,private appService: AppService) {
     this.config.notFoundText = 'Custom not found';
     this.config.appendTo = 'body';
@@ -89,7 +91,7 @@ export class ModalComponent implements OnInit {
       })
   }
   startRegister(form: FormGroup){
-    this.appService.registerStart({ username: this.registrationForm.value.username,email: this.registrationForm.value.email, site_key: 'no01'}).subscribe((response) => {
+    this.appService.registerStart({ username: this.registrationForm.value.username,email: this.registrationForm.value.email, site_key: 'no01'}).subscribe(response => {
       if(response.Status == 'ok'){
         this.userId = response.Data;
         const params = {
@@ -113,6 +115,9 @@ export class ModalComponent implements OnInit {
           this.error = true
         })
       }
+    }, error1 => {
+      this.mailError = true;
+      this.mailValidation = error1.error.Error.message;
     });
   }
 }

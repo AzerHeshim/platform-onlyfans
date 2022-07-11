@@ -103,7 +103,7 @@
           </ng-template>
           <div class="step_four">
               <p class="step_header">Your location:</p>
-              <ng-select (change)="getselectedAdress(selectedCity)" [items]="cities" (ngModelChange)="addressAdded = true; " (search)="getLocations($event)" #ngselect [(ngModel)]="selectedCity" [appearance]="'outline'" class="ng-select ng_input" [placeholder]="'Enter city name'"  formControlName="location" >
+              <ng-select (change)="getselectedAdress(selectedCity)" [items]="cities | slice:0:4" (ngModelChange)="addressAdded = true; " (search)="getLocations($event)" #ngselect [(ngModel)]="selectedCity" [appearance]="'outline'" class="ng-select ng_input" [placeholder]="'Enter city name'"  formControlName="location" >
                 <ng-template ng-label-tmp let-city="item">
                   <b>{{city}}</b>
                 </ng-template>
@@ -178,6 +178,7 @@
           <div class="validate" *ngIf="registrationForm.get('email')?.invalid && (registrationForm.get('email')?.dirty || registrationForm.get('email')?.touched)">
             Please provide a valid email address.
           </div>
+          <p class="validate" *ngIf="mailError">{{mailValidation}}</p>
           <div class="gender_options">
             <button class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
               <p>Back</p>
