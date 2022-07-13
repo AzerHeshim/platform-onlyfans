@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, Injectable, Injector, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,8 +11,8 @@ import {NgStepperModule} from "angular-ng-stepper";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
-import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {HTTP_INTERCEPTORS, HttpBackend, HttpClient, HttpClientModule} from "@angular/common/http";
+import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
 import {AlertModule} from "ngx-bootstrap/alert";
@@ -20,6 +20,16 @@ import { TwoDigitDecimaNumberDirective} from './directives/two-digit-handling.di
 import {FourDigitDecimaNumberDirective} from './directives/four-digit-handling.directive';
 
 
+@Injectable({providedIn: 'root'})
+export class HttpClientTrans extends HttpClient {
+  constructor(handler: HttpBackend) {
+    super(handler);
+  }
+}
+
+export function HttpLoaderFactory(httpClient: HttpClientTrans) {
+  return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -43,7 +53,7 @@ import {FourDigitDecimaNumberDirective} from './directives/four-digit-handling.d
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
+        deps: [HttpClientTrans]
       }
     }),
     ReactiveFormsModule,
@@ -59,6 +69,4 @@ import {FourDigitDecimaNumberDirective} from './directives/four-digit-handling.d
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http);
-}
+

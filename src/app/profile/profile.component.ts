@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit {
   constructor(private modalService: BsModalService,private translate: TranslateService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.translate.use('en');
     // LANGUAGE SERVICE IF NEEDED IN FUTURE
     // this.language = this.route.snapshot.params['language'];
     // if(this.language === 'en'){

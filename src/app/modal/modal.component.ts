@@ -37,15 +37,15 @@ export class ModalComponent implements OnInit {
     this.registrationForm = this.fb.group({
       gender: ['', Validators.required],
       location: ['', Validators.required],
-      username: ['', Validators.required, Validators.minLength(6)],
-      password: ['', Validators.required],
+      username: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required , Validators.minLength(6)]],
       looking_for: [''],
-      day: ['', Validators.required, Validators.minLength(2),
-        Validators.maxLength(2)],
-      month: ['', Validators.required,Validators.minLength(2),
-        Validators.maxLength(2)],
-      year: ['', Validators.required,Validators.minLength(4),
-        Validators.maxLength(4), Validators.min(2004), Validators.max(2022)],
+      day: ['', [Validators.required, Validators.minLength(2),
+        Validators.maxLength(2)]],
+      month: ['', [Validators.required,Validators.minLength(2),
+        Validators.maxLength(2)]],
+      year: ['', [Validators.required,Validators.minLength(4),
+        Validators.maxLength(4), Validators.max(2004)]],
       DOB: [''],
       email: ['', [Validators.required, Validators.email]],
     });
@@ -87,7 +87,7 @@ export class ModalComponent implements OnInit {
   }
   getLocations(event: any){
       this.appService.getLocations({site_key: 'no01', search: event.term}).subscribe((response) =>{
-        this.cities= response.Data
+        this.cities= response.Data.slice(0, 4);
       })
   }
   startRegister(form: FormGroup){
