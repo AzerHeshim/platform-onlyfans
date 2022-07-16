@@ -57,6 +57,9 @@
     "male": "Male",
     "female": "Female",
     "birthday": "Your birthday :",
+    "dd": "DD",
+    "mm": "MM",
+    "yyyy": "YYYY",
     "dayValidation": "Pls provide a legit day",
     "monthValidation": "Pls provide a legit month",
     "yearValidation": "Pls provide a legit year (Must be over 18)",
@@ -73,6 +76,7 @@
     "passwordValidationNumber": "Must include a number",
     "email": "Your email",
     "emailValidation": " Please provide a valid email address.",
-    "finish": "Finish"
+    "finish": "Finish",
+    "close": "Close"
   }
 }

@@ -3,12 +3,16 @@ import {NgSelectConfig} from "@ng-select/ng-select";
 import {BsModalService} from "ngx-bootstrap/modal";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AppService} from "../services/app.service";
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
+
+
 export class ModalComponent implements OnInit {
   activeStepIndex: any = 0;
   addressAdded= true;
@@ -19,10 +23,17 @@ export class ModalComponent implements OnInit {
   success: boolean = false;
   error: boolean = false;
   mailError: boolean = false;
+  usernameError: boolean = false;
   registrationForm!: FormGroup;
   errorMessage :string = '';
   password: string = '';
   mailValidation: string = '';
+  usernameValidation: string = '';
+  year: string = '';
+  day: string = '';
+  month: string = '';
+  isLegal : boolean = false
+  isLegitMonth : boolean = false
   constructor(private config: NgSelectConfig, public modalService: BsModalService,private fb: FormBuilder,private appService: AppService) {
     this.config.notFoundText = 'Custom not found';
     this.config.appendTo = 'body';
@@ -32,6 +43,8 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.ageDIff()
+    this.checkDaysInmonth()
     // @ts-ignore
     this.activeStepIndex = +localStorage.getItem('activeStep');
     this.registrationForm = this.fb.group({
@@ -45,10 +58,17 @@ export class ModalComponent implements OnInit {
       month: ['', [Validators.required,Validators.minLength(2),
         Validators.maxLength(2)]],
       year: ['', [Validators.required,Validators.minLength(4),
-        Validators.maxLength(4), Validators.max(2004)]],
+        Validators.maxLength(4)]],
       DOB: [''],
       email: ['', [Validators.required, Validators.email]],
     });
+  }
+
+  ageDIff(){
+      this.isLegal = moment().year() - Number(this.year) >= 18;
+  }
+  checkDaysInmonth(){
+    this.isLegitMonth = moment(`${this.day}-${this.month}-${this.year}`, 'DD-MM-YYYY').isValid();
   }
   setDOB(){
     this.registrationForm.value.DOB = this.registrationForm.value.year + '-' + this.registrationForm.value.month + '-' + this.registrationForm.value.day
@@ -89,6 +109,18 @@ export class ModalComponent implements OnInit {
       this.appService.getLocations({site_key: 'no01', search: event.term}).subscribe((response) =>{
         this.cities= response.Data.slice(0, 4);
       })
+  }
+
+  checkUsername(form: FormGroup, e: any){
+    this.appService.registerStart({ username: this.registrationForm.value.username, site_key: 'no01'}).subscribe(response => {
+      if(response.Status == 'ok'){
+        this.userId = response.Data;
+        this.next(e)
+      }
+    }, error1 => {
+      this.usernameError = true;
+      this.usernameValidation = error1.error.Error.message;
+    });
   }
   startRegister(form: FormGroup){
     this.appService.registerStart({ username: this.registrationForm.value.username,email: this.registrationForm.value.email, site_key: 'no01'}).subscribe(response => {
