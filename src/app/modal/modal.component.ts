@@ -1,5 +1,4 @@
 import {Component, ElementRef, OnInit, ViewChildren} from '@angular/core';
-import {NgSelectConfig} from "@ng-select/ng-select";
 import {BsModalService} from "ngx-bootstrap/modal";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AppService} from "../services/app.service";
@@ -14,6 +13,7 @@ import * as moment from 'moment';
 
 
 export class ModalComponent implements OnInit {
+  keyword = 'name';
   activeStepIndex: any = 0;
   addressAdded= true;
   step: any | null;
@@ -34,10 +34,8 @@ export class ModalComponent implements OnInit {
   month: string = '';
   isLegal : boolean = false
   isLegitMonth : boolean = false
-  constructor(private config: NgSelectConfig, public modalService: BsModalService,private fb: FormBuilder,private appService: AppService) {
-    this.config.notFoundText = 'Custom not found';
-    this.config.appendTo = 'body';
-    this.config.bindValue = 'value';
+  constructor( public modalService: BsModalService,private fb: FormBuilder,private appService: AppService) {
+
 
 
   }
@@ -106,7 +104,7 @@ export class ModalComponent implements OnInit {
     this.selectedCity = selectedCity;
   }
   getLocations(event: any){
-      this.appService.getLocations({site_key: 'no01', search: event.term}).subscribe((response) =>{
+      this.appService.getLocations({site_key: 'no01', search: this.selectedCity}).subscribe((response) =>{
         this.cities= response.Data.slice(0, 4);
       })
   }

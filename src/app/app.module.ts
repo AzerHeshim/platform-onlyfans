@@ -8,7 +8,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ModalComponent } from './modal/modal.component';
 import {CdkStepperModule} from "@angular/cdk/stepper";
 import {NgStepperModule} from "angular-ng-stepper";
-import {NgSelectModule} from "@ng-select/ng-select";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HTTP_INTERCEPTORS, HttpBackend, HttpClient, HttpClientModule} from "@angular/common/http";
@@ -18,6 +17,7 @@ import {AuthInterceptor} from "./interceptors/auth.interceptor";
 import {AlertModule} from "ngx-bootstrap/alert";
 import { TwoDigitDecimaNumberDirective} from './directives/two-digit-handling.directive';
 import {FourDigitDecimaNumberDirective} from './directives/four-digit-handling.directive';
+import {AutocompleteLibModule} from "angular-ng-autocomplete";
 
 
 @Injectable({providedIn: 'root'})
@@ -45,7 +45,7 @@ export function HttpLoaderFactory(httpClient: HttpClientTrans) {
     ModalModule.forRoot(),
     CdkStepperModule,
     NgStepperModule,
-    NgSelectModule,
+    AutocompleteLibModule,
     FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,

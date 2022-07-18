@@ -103,11 +103,35 @@
           </ng-template>
           <div class="step_four">
               <p class="step_header">{{ 'dialog.location' | translate }}</p>
-              <ng-select [ngClass]="{ validate_input: registrationForm.get('location')?.invalid && (registrationForm.get('location')?.dirty || registrationForm.get('location')?.touched)}" (change)="getselectedAdress(selectedCity)" [items]="cities" (ngModelChange)="addressAdded = true; " (search)="getLocations($event)" #ngselect [(ngModel)]="selectedCity" [appearance]="'outline'" class="ng-select ng_input" placeholder="{{ 'dialog.locationPLaceholder' | translate }}"  formControlName="location" >
-                <ng-template ng-label-tmp let-city="item">
-                  <b>{{city}}</b>
-                </ng-template>
-              </ng-select>
+<!--              <ng-select [ngClass]="{ validate_input: registrationForm.get('location')?.invalid && (registrationForm.get('location')?.dirty || registrationForm.get('location')?.touched)}" (change)="getselectedAdress(selectedCity)" [items]="cities" (ngModelChange)="addressAdded = true; " (search)="getLocations($event)" #ngselect [(ngModel)]="selectedCity" [appearance]="'outline'" class="ng-select ng_input" placeholder="{{ 'dialog.locationPLaceholder' | translate }}"  formControlName="location" >-->
+<!--                <ng-template ng-label-tmp let-city="item">-->
+<!--                  <b>{{city}}</b>-->
+<!--                </ng-template>-->
+<!--              </ng-select>-->
+            <div class="ng-autocomplete">
+              <ng-autocomplete
+                [ngClass]="{ validate_input: registrationForm.get('location')?.invalid && (registrationForm.get('location')?.dirty || registrationForm.get('location')?.touched)}"
+                [(ngModel)]="selectedCity"
+                formControlName="location"
+                [data]="cities"
+                [searchKeyword]="keyword"
+                placeholder="{{ 'dialog.locationPLaceholder' | translate }}"
+                (selected)='getselectedAdress(selectedCity)'
+                (inputChanged)='addressAdded = true;getLocations($event)'
+                [itemTemplate]="itemTemplate"
+                [notFoundTemplate]="notFoundTemplate">
+              </ng-autocomplete>
+
+              <ng-template #itemTemplate let-city>
+                <a [innerHTML]="city"></a>
+              </ng-template>
+
+              <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+              </ng-template>
+            </div>
+
+
             <div class="validate" *ngIf="registrationForm.get('location')?.invalid && (registrationForm.get('location')?.dirty || registrationForm.get('location')?.touched)">
               <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">  {{ 'dialog.locationValidation' | translate }}
             </div>
