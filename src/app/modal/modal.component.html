@@ -127,7 +127,8 @@
               </ng-template>
 
               <ng-template #notFoundTemplate let-notFound>
-                <div [innerHTML]="notFound"></div>
+<!--                <div [innerHTML]="notFound"></div>-->
+                <p>{{ 'dialog.cityNotFound' | translate }}</p>
               </ng-template>
             </div>
 
@@ -207,11 +208,22 @@
           </div>
           <p class="validate" *ngIf="mailError">
             <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">{{mailValidation}}</p>
+          <div class="tick">
+            <input (change)="agree()" class="inp-cbx" id="cbx" type="checkbox" style="display: none;"/>
+            <label class="cbx" for="cbx">
+              <div>
+    <svg width="12px" height="9px" viewbox="0 0 12 9">
+      <polyline points="1 5 4 8 11 1"></polyline>
+    </svg></div>
+            </label>
+            <span>{{ 'dialog.agree' | translate }} <a class="open_terms" (click)="openTerms()">{{ 'dialog.terms' | translate }} </a> {{ 'dialog.and' | translate }} <a class="open_terms" (click)="openPrivacy()"> {{ 'dialog.privacy' | translate }}</a>.</span>
+
+          </div>
           <div class="gender_options">
             <button class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
               <p>{{ 'dialog.back' | translate }}</p>
             </button>
-            <button class="gender_option_item stepper_generic" aria-label="Close"  (click)="onSubmit(registrationForm)" [ngClass]="{ disabled_button: registrationForm.get('email')?.invalid }"
+            <button class="gender_option_item stepper_generic" aria-label="Close"  (click)="onSubmit(registrationForm)" [ngClass]="{ disabled_button: (registrationForm.get('email')?.invalid) || agreed }"
                     [disabled]="registrationForm.get('email')?.invalid">
               <p> {{ 'dialog.finish' | translate }}</p>
             </button>

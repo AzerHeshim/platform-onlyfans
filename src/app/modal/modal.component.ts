@@ -1,8 +1,10 @@
-import {Component, ElementRef, OnInit, ViewChildren} from '@angular/core';
-import {BsModalService} from "ngx-bootstrap/modal";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Component,  OnInit} from '@angular/core';
+import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import {FormBuilder,  FormGroup, Validators} from "@angular/forms";
 import {AppService} from "../services/app.service";
 import * as moment from 'moment';
+import {TermsComponent} from "../terms/terms.component";
+import {PrivacyComponent} from "../privacy/privacy.component";
 
 
 @Component({
@@ -32,8 +34,11 @@ export class ModalComponent implements OnInit {
   year: string = '';
   day: string = '';
   month: string = '';
-  isLegal : boolean = false
-  isLegitMonth : boolean = false
+  isLegal : boolean = false;
+  isLegitMonth : boolean = false;
+  agreed : boolean = false;
+  bsModalRef?: BsModalRef;
+
   constructor( public modalService: BsModalService,private fb: FormBuilder,private appService: AppService) {
 
 
@@ -149,5 +154,24 @@ export class ModalComponent implements OnInit {
       this.mailError = true;
       this.mailValidation = error1.error.Error.message;
     });
+  }
+  openTerms() {
+    this.bsModalRef = this.modalService.show(TermsComponent,  Object.assign({}, { class: 'modal-sm terms' }));
+    // @ts-ignore
+    this.bsModalRef.onHidden.subscribe( res => {
+      console.log('');
+    })
+    this.bsModalRef.content.closeBtnName = 'Close';
+  }
+  openPrivacy(){
+    this.bsModalRef = this.modalService.show(PrivacyComponent,  Object.assign({}, { class: 'modal-sm terms' }));
+    // @ts-ignore
+    this.bsModalRef.onHidden.subscribe( res => {
+      console.log('');
+    })
+    this.bsModalRef.content.closeBtnName = 'Close';
+  }
+  agree(){
+      this.agreed = true
   }
 }

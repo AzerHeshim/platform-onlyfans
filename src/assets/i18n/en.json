@@ -68,6 +68,7 @@
     "location": "Your location:",
     "locationPLaceholder": "Enter city name",
     "locationValidation": "Pls provide a legit loaction ",
+    "cityNotFound": "City not available, try another",
     "username": "Your username ",
     "usernameValidation": "Please provide a username.",
     "usernameValidationMin": "Minimum 6 characters ",
@@ -77,6 +78,18 @@
     "email": "Your email",
     "emailValidation": " Please provide a valid email address.",
     "finish": "Finish",
-    "close": "Close"
+    "close": "Close",
+    "agree": "I certify that I am over 18 years old, and I have read and accept the",
+    "terms": "Terms of Use",
+    "and": "and",
+    "privacy": "Privacy Policy"
+  },
+  "terms": {
+    "head": "Terms of use",
+    "description": " Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam culpa distinctio illum magnam molestias nisi quae quidem quisquam sint tempore! Ad assumenda cum dolorem eos quas? Cupiditate enim nulla repellat!"
+  },
+  "privacyPolicy": {
+    "head": "Privacy",
+    "description": " Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam culpa distinctio illum magnam molestias nisi quae quidem quisquam sint tempore! Ad assumenda cum dolorem eos quas? Cupiditate enim nulla repellat!"
   }
 }

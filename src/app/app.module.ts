@@ -18,6 +18,8 @@ import {AlertModule} from "ngx-bootstrap/alert";
 import { TwoDigitDecimaNumberDirective} from './directives/two-digit-handling.directive';
 import {FourDigitDecimaNumberDirective} from './directives/four-digit-handling.directive';
 import {AutocompleteLibModule} from "angular-ng-autocomplete";
+import { TermsComponent } from './terms/terms.component';
+import { PrivacyComponent } from './privacy/privacy.component';
 
 
 @Injectable({providedIn: 'root'})
@@ -37,7 +39,9 @@ export function HttpLoaderFactory(httpClient: HttpClientTrans) {
     ProfileComponent,
     ModalComponent,
     TwoDigitDecimaNumberDirective,
-    FourDigitDecimaNumberDirective
+    FourDigitDecimaNumberDirective,
+    TermsComponent,
+    PrivacyComponent
   ],
   imports: [
     BrowserModule,
