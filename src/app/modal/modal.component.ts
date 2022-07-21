@@ -38,7 +38,8 @@ export class ModalComponent implements OnInit {
   isLegitMonth : boolean = false;
   agreed : boolean = false;
   bsModalRef?: BsModalRef;
-
+  fieldAlreadyExists: boolean = false;
+  passwordDontMatch: boolean = false;
   constructor( public modalService: BsModalService,private fb: FormBuilder,private appService: AppService) {
 
 
@@ -123,8 +124,28 @@ export class ModalComponent implements OnInit {
     }, error1 => {
       this.usernameError = true;
       this.usernameValidation = error1.error.Error.message;
+      if(error1.error.Error.code === 100){
+        this.fieldAlreadyExists = true
+      }
     });
   }
+
+  checkPassword(form: FormGroup, e: any){
+    this.appService.registerNext({ password: this.registrationForm.value.password, site_key: 'no01'},this.userId).subscribe(response => {
+      if(response.Status == 'ok'){
+        this.userId = response.Data;
+        this.next(e)
+      }
+    }, error1 => {
+      this.usernameError = true;
+      this.usernameValidation = error1.error.Error.message;
+      if(error1.error.Error.code === 105){
+        this.passwordDontMatch = true
+      }
+    });
+  }
+
+
   startRegister(form: FormGroup){
     this.appService.registerStart({ username: this.registrationForm.value.username,email: this.registrationForm.value.email, site_key: 'no01'}).subscribe(response => {
       if(response.Status == 'ok'){
@@ -147,12 +168,18 @@ export class ModalComponent implements OnInit {
           this.success =true
         }, error => {
           this.errorMessage = error.error.Error.message
-          this.error = true
+          this.error = true;
+          if(error.error.Error.code === 100){
+            this.fieldAlreadyExists = true
+          }
         })
       }
     }, error1 => {
       this.mailError = true;
       this.mailValidation = error1.error.Error.message;
+      if(error1.error.Error.code === 100){
+        this.fieldAlreadyExists = true
+      }
     });
   }
   openTerms() {

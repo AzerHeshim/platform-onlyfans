@@ -72,9 +72,11 @@
     "username": "Your username ",
     "usernameValidation": "Please provide a username.",
     "usernameValidationMin": "Minimum 6 characters ",
+    "fieldAlreadyExists": "Field already exist",
     "password": "Your Password ",
     "passwordValidation": "Minimum 6 characters",
     "passwordValidationNumber": "Must include a number",
+    "passwordDontMatch": "Password requirements don't match",
     "email": "Your email",
     "emailValidation": " Please provide a valid email address.",
     "finish": "Finish",
@@ -82,7 +84,8 @@
     "agree": "I certify that I am over 18 years old, and I have read and accept the",
     "terms": "Terms of Use",
     "and": "and",
-    "privacy": "Privacy Policy"
+    "privacy": "Privacy Policy",
+    "success": " You successfully registered. "
   },
   "terms": {
     "head": "Terms of use",

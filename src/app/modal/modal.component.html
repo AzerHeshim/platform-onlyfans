@@ -160,8 +160,8 @@
             <div class="validate" *ngIf="(registrationForm.get('username')?.value.length < 6) ">
               <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">  {{ 'dialog.usernameValidationMin' | translate }}
             </div>
-            <div class="validate" *ngIf="usernameError ">
-              <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">  {{usernameValidation}}
+            <div class="validate" *ngIf="fieldAlreadyExists ">
+              <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">   {{ 'dialog.fieldAlreadyExists' | translate }}
             </div>
             <div class="gender_options">
               <button class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
@@ -187,11 +187,14 @@
           <div class="validate" *ngIf="!hasNumber(password)" >
             <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">  {{ 'dialog.passwordValidationNumber' | translate }}
           </div>
+          <div class="validate" *ngIf="passwordDontMatch ">
+            <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">   {{ 'dialog.passwordDontMatch' | translate }}
+          </div>
           <div class="gender_options">
             <button class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
               <p>{{ 'dialog.back' | translate }}</p>
             </button>
-            <button class="gender_option_item stepper_generic" (click)="next(cdkStepper)" [ngClass]="{ disabled_button: (registrationForm.get('password')?.invalid || !hasNumber(password)) }"
+            <button class="gender_option_item stepper_generic" (click)="checkPassword(registrationForm,cdkStepper)" [ngClass]="{ disabled_button: (registrationForm.get('password')?.invalid || !hasNumber(password)) }"
                     [disabled]="registrationForm.get('password')?.invalid">
               <p>{{ 'dialog.next' | translate }} </p>
             </button>
@@ -223,8 +226,8 @@
             <button class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
               <p>{{ 'dialog.back' | translate }}</p>
             </button>
-            <button class="gender_option_item stepper_generic" aria-label="Close"  (click)="onSubmit(registrationForm)" [ngClass]="{ disabled_button: (registrationForm.get('email')?.invalid) || agreed }"
-                    [disabled]="registrationForm.get('email')?.invalid">
+            <button class="gender_option_item stepper_generic" aria-label="Close"  (click)="onSubmit(registrationForm)" [ngClass]="{ disabled_button: (registrationForm.get('email')?.invalid) || !agreed }"
+                    [disabled]="registrationForm.get('email')?.invalid || !agreed ">
               <p> {{ 'dialog.finish' | translate }}</p>
             </button>
           </div>
@@ -237,9 +240,9 @@
   <button class="close_modal" (click)="hide()">{{ 'dialog.close' | translate }}</button>
 </div>
 <alert type="success" *ngIf="success" [dismissOnTimeout]="3000">
-  <strong>Well done!</strong> You successfully registered.
+  {{ 'dialog.fieldAlreadyExists' | translate }}
 </alert>
 
-<alert type="danger" *ngIf="error" >
-  <strong>Oh snap!</strong> {{errorMessage}}
+<alert type="danger" *ngIf="fieldAlreadyExists" >
+  {{ 'dialog.fieldAlreadyExists' | translate }}
 </alert>
