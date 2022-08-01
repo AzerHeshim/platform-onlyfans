@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {BsModalRef} from "ngx-bootstrap/modal";
+import {TOSData} from "../TOS-config";
 
 @Component({
   selector: 'app-terms',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./terms.component.scss']
 })
 export class TermsComponent implements OnInit {
+  terms: typeof TOSData = TOSData ;
 
-  constructor() { }
+  constructor(private modalReff: BsModalRef) { }
 
   ngOnInit(): void {
   }
-
+  hideModal(){
+    this.modalReff.hide();
+  }
 }

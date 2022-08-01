@@ -122,9 +122,13 @@
 }
 .statistics{
   color: white;
-  font-size: 15px;
   margin-bottom: 0;
   margin-right: 6px;
+  span{
+    font-size: 15px;
+    position: relative;
+    left: 4px;
+  }
 }
 
 .actions{
@@ -473,6 +477,7 @@ hr{
 }
   .profile_content{
     grid-template-columns: 1fr;
+    gap: 0
   }
   .tags{
     flex-wrap: wrap;
@@ -486,6 +491,9 @@ hr{
   }
   .statistics{
     white-space: nowrap;
+    span{
+      display: none;
+    }
   }
   .name_dark{
     letter-spacing: -1px ;

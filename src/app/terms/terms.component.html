@@ -1,9 +1,57 @@
 <div class="modal-header">
-  <h4 class="modal-title pull-left" id="my-modal-title">{{ 'terms.head' | translate }}</h4>
+  <h4 class="modal-title pull-left" id="my-modal-title">General Terms of Service</h4>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)=" hideModal()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
 </div>
 <div class="terms_content">
-  <p>
-    {{ 'terms.description' | translate }}
+  <p>Any and all visits and usage of this website, and the services it provides, will be governed by
+    the following general Terms of Service. Please read this document thoroughly before using
+    the website or any of its services.</p>
+  <p>If you find any parts of our Terms of Service to be objectionable, or you feel that you cannot
+    accept them, or if you feel that you have trouble reading and understanding them, then
+    please discontinue use of this website immediately. Use of this website and our included
+    services implies that you fully and without reservation accept these General Terms of Service.</p>
+  <div>
+  <h3><b>1. Definitions</b></h3>
+  <p><b>1.1</b> Silvanus Technologies Ltd: This refers to the limited liability Company, registered in the
+    business register with organization number, <img class="code" src="assets/images/PlatformOnlyfansScreenshot3.svg" alt="">, with headquarters in
+    <img src="assets/images/PlatformOnlyfansScreenshot.svg" alt="">
+    <img class="address" src="assets/images/PlatformOnlyfansScreenshot2.svg" alt="">
+    It is responsible for both personal data and as
+    operator and owner of temptingcrush.com, and is henceforth to be referred to as
+    "Company", "Operator", "Us" or "We".</p>
+  <p><b>1.2</b> Account: the account that a User has created for their own personal use and not for use
+    to represent a group, business, or any other enterprise, nor for the use of representing
+    other persons or third parties, including, but not limited to, impersonations and
+    satirizations.
   </p>
-
+  <p><b>1.3 </b> Content: the published information displayed on this website, including, but not limited
+    to, images and text, as well as any and all user-generated content.</p>
+  <p><b>1.4 </b> Credits: the virtual unit of value purchased by the User in accordance with the
+    provisions of Article 7. The User may use Credits to send messages, images and to
+    subscribe to premium features or any other services offered by the Company.</p>
+  <p><b>1.5 </b>Logs: digital records of any and all activity that occurs on the temptingcrush.com
+    website. </p>
+  <p><b>1.6 </b>Intellectual property rights: all intellectual property rights, including, but not limited to,
+    copyright, trademarks, database rights, and other relevant rights, as well as related
+    rights such as expertise and other knowledge derived from these rights. </p>
+  <p><b>1.7 </b>Messages: digital, protected communication that the User can exchange with other
+    Users of the website and which is visible to the User when logged into their personal
+    account </p>
+  <p><b>1.8 </b> Profile: the personal information, preferences, and other content as set by a User that
+    are searchable and visible to other Users.</p>
+  <p><b>1.9 </b>Services: the service provided by the Company and this website, primarily the platform
+    for sending and receiving messages and other content to and from other Users. </p>
+  <p><b>1.10 </b> User: the individual person who visits this website and/or uses the primary Services or
+    any other products offered by the Company, hereafter referred to as “you” or “your”.</p>
+  <p><b>1.11 </b> Website: the hosted, visible vehicle for presenting information and services via the
+    Internet at the domain name temptingcrush.com.
+  </p>
+  </div>
+  <div *ngFor="let term of terms; let  i = index">
+    <h3><b>{{i+2}}. {{term.header}}</b> </h3>
+    <p *ngFor="let description of term.descriptions; index as j" >
+     <b>{{i+2}}.{{j+1}}</b> {{description.desc}}</p>
+  </div>
 </div>

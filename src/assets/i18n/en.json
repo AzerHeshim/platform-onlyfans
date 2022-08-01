@@ -86,13 +86,5 @@
     "and": "and",
     "privacy": "Privacy Policy",
     "success": " You successfully registered. "
-  },
-  "terms": {
-    "head": "Terms of use",
-    "description": " Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam culpa distinctio illum magnam molestias nisi quae quidem quisquam sint tempore! Ad assumenda cum dolorem eos quas? Cupiditate enim nulla repellat!"
-  },
-  "privacyPolicy": {
-    "head": "Privacy",
-    "description": " Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam culpa distinctio illum magnam molestias nisi quae quidem quisquam sint tempore! Ad assumenda cum dolorem eos quas? Cupiditate enim nulla repellat!"
   }
 }

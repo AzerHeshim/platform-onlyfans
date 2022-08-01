@@ -71,11 +71,11 @@
           <div class="step_three">
             <p class="step_header">{{ 'dialog.birthday' | translate }}</p>
             <div class="birthday">
-              <input [ngClass]="{ validate_input: (registrationForm.get('day')?.invalid) || (!isLegitMonth)}" class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="{{ 'dialog.dd' | translate }}" min="0" max="31" formControlName="day" appTwoDigitDecimaNumber [(ngModel)]="day" (ngModelChange)="checkDaysInmonth()" >
-              <input [ngClass]="{ validate_input: (registrationForm.get('month')?.invalid)  ||  (!isLegitMonth)}" class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="{{ 'dialog.mm' | translate }}" min="0"  max="12" formControlName="month" appTwoDigitDecimaNumber [(ngModel)]="month" (ngModelChange)="checkDaysInmonth()">
-              <input [ngClass]="{ validate_input: (registrationForm.get('year')?.invalid) || (!isLegitMonth)}" class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="{{ 'dialog.yyyy' | translate }}" min="1900" max="2004" formControlName="year" appFourDigitDecimaNumber [(ngModel)]="year" (ngModelChange)="ageDIff(); checkDaysInmonth()">
+              <input [ngClass]="validateDayBorder()" class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="{{ 'dialog.dd' | translate }}" min="0" max="31" formControlName="day" appTwoDigitDecimaNumber [(ngModel)]="day" (ngModelChange)="checkDaysInmonth(); checkDays()" >
+              <input [ngClass]="validateMonthBorder()" class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="{{ 'dialog.mm' | translate }}" min="0"  max="12" formControlName="month" appTwoDigitDecimaNumber [(ngModel)]="month" (ngModelChange)="checkDaysInmonth(); checkMonths()">
+              <input [ngClass]="validateYearBorder()" class="input_item" inputmode="numeric" pattern="[0-9]*" type="number" placeholder="{{ 'dialog.yyyy' | translate }}" min="1900" max="2004" formControlName="year" appFourDigitDecimaNumber [(ngModel)]="year" (ngModelChange)="ageDIff(); checkDaysInmonth(); checkYears()">
             </div>
-            <div class="validate" *ngIf="(registrationForm.get('day')?.invalid && (registrationForm.get('day')?.dirty || registrationForm.get('day')?.touched)) || !isLegitMonth">
+            <div class="validate" *ngIf="(registrationForm.get('day')?.invalid && (registrationForm.get('day')?.dirty || registrationForm.get('day')?.touched)) ">
               <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">  {{ 'dialog.dayValidation' | translate }}
             </div>
             <div class="validate" *ngIf="registrationForm.get('month')?.invalid && (registrationForm.get('month')?.dirty || registrationForm.get('month')?.touched)">
@@ -103,11 +103,6 @@
           </ng-template>
           <div class="step_four">
               <p class="step_header">{{ 'dialog.location' | translate }}</p>
-<!--              <ng-select [ngClass]="{ validate_input: registrationForm.get('location')?.invalid && (registrationForm.get('location')?.dirty || registrationForm.get('location')?.touched)}" (change)="getselectedAdress(selectedCity)" [items]="cities" (ngModelChange)="addressAdded = true; " (search)="getLocations($event)" #ngselect [(ngModel)]="selectedCity" [appearance]="'outline'" class="ng-select ng_input" placeholder="{{ 'dialog.locationPLaceholder' | translate }}"  formControlName="location" >-->
-<!--                <ng-template ng-label-tmp let-city="item">-->
-<!--                  <b>{{city}}</b>-->
-<!--                </ng-template>-->
-<!--              </ng-select>-->
             <div class="ng-autocomplete">
               <ng-autocomplete
                 [ngClass]="{ validate_input: registrationForm.get('location')?.invalid && (registrationForm.get('location')?.dirty || registrationForm.get('location')?.touched)}"
@@ -153,13 +148,13 @@
           </ng-template>
           <div class="step_five">
             <p class="step_header">{{ 'dialog.username' | translate }}</p>
-            <input  [ngClass]="{ validate_input: registrationForm.get('location')?.invalid && registrationForm.get('location')?.invalid }" type="text" class="input_item" placeholder="Your username" formControlName="username">
-            <div class="validate" *ngIf="registrationForm.get('username')?.invalid && (registrationForm.get('username')?.dirty || registrationForm.get('username')?.touched)">
+            <input  [ngClass]="validateUsernameBorder()" type="text" class="input_item" placeholder="Your username" [(ngModel)]="username" formControlName="username" pattern="^[a-zA-Z0-9]+$" (ngModelChange)="checkUSername()">
+            <div class="validate" *ngIf="registrationForm.get('username')?.invalid && (registrationForm.get('username')?.dirty )">
               <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">   {{ 'dialog.usernameValidation' | translate }}
             </div>
-            <div class="validate" *ngIf="(registrationForm.get('username')?.value.length < 6) ">
-              <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">  {{ 'dialog.usernameValidationMin' | translate }}
-            </div>
+<!--            <div class="validate" *ngIf="(registrationForm.get('username')?.value.length < 6) ">-->
+<!--              <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">  {{ 'dialog.usernameValidationMin' | translate }}-->
+<!--            </div>-->
             <div class="validate" *ngIf="fieldAlreadyExists ">
               <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">   {{ 'dialog.fieldAlreadyExists' | translate }}
             </div>
@@ -180,15 +175,18 @@
           </ng-template>
 
           <p class="step_header"> {{ 'dialog.password' | translate }}</p>
-          <input  [ngClass]="{ validate_input: (registrationForm.get('password')?.invalid || !hasNumber(password))}" [(ngModel)]="password" type="password" class="input_item" placeholder="Your password" formControlName="password">
+          <input  [ngClass]="{ validate_input: validatePasswordBorder()}" [(ngModel)]="password" type="password" class="input_item" placeholder="Your password" formControlName="password" (ngModelChange)="checkPasswordVal()">
           <div class="validate" *ngIf="registrationForm.get('password')?.invalid && (registrationForm.get('password')?.dirty || registrationForm.get('password')?.touched) && !hasNumber(password)">
             <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">  {{ 'dialog.passwordValidation' | translate }}
           </div>
-          <div class="validate" *ngIf="!hasNumber(password)" >
+          <div class="validate" *ngIf="!checkPasswordNumber() && password.length > 6" >
             <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">  {{ 'dialog.passwordValidationNumber' | translate }}
           </div>
           <div class="validate" *ngIf="passwordDontMatch ">
             <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">   {{ 'dialog.passwordDontMatch' | translate }}
+          </div>
+          <div class="validate" *ngIf="invalidId ">
+            <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">   invalid iD
           </div>
           <div class="gender_options">
             <button class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
@@ -205,7 +203,7 @@
             <div class="step-bullet">7</div>
           </ng-template>
           <p class="step_header"> {{ 'dialog.email' | translate }}</p>
-          <input [ngClass]="{ validate_input: registrationForm.get('email')?.invalid }" type="email" class="input_item" placeholder="Your Email" formControlName="email">
+          <input [ngClass]="{ validate_input: registrationForm.get('email')?.invalid && this.email.length > 8}" type="email" class="input_item" placeholder="Your Email" formControlName="email" [(ngModel)]="email">
           <div class="validate" *ngIf="registrationForm.get('email')?.invalid && (registrationForm.get('email')?.dirty || registrationForm.get('email')?.touched)">
             <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">  {{ 'dialog.emailValidation' | translate }}
           </div>

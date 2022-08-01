@@ -3,20 +3,23 @@
 
 ::ng-deep.modal.show .modal-dialog{
   max-width: 750px;
+  overflow: hidden;
 }
 
 ::ng-deep.modal.show .terms{
-  position: absolute !important;
-  left: 50% !important;
-  transform: translate(-50%, 100%) !important;
-  width: 600px !important;
-  box-shadow: 2px 0px 13px 2px rgb(84 84 84 / 47%) !important;
-  -webkit-box-shadow: 2px 0px 13px 2px rgb(84 84 84 / 47%) !important;
-  -moz-box-shadow: 2px 0px 13px 2px rgb(84 84 84 / 47%) !important;
-  border-radius: 8px !important;
+  //position: absolute !important;
+  //left: 50% !important;
+  //transform: translate(-50%, 100%) !important;
+  //width: 600px !important;
+  //box-shadow: 2px 0px 13px 2px rgb(84 84 84 / 47%) !important;
+  //-webkit-box-shadow: 2px 0px 13px 2px rgb(84 84 84 / 47%) !important;
+  //-moz-box-shadow: 2px 0px 13px 2px rgb(84 84 84 / 47%) !important;
+  //border-radius: 8px !important;
 }
 
-
+//::ng-deep ng-stepper{
+//  overflow: visible !important;
+//}
 .profile_modal{
   padding: 16px;
 }
@@ -229,13 +232,18 @@ input::-webkit-inner-spin-button {
   z-index: 100000 !important;
 }
 
-::ng-deep ng-stepper{
-  overflow: visible !important;
-}
 ::ng-deep .validate_input .autocomplete-container .input-container input{
   border: 1px solid red !important;
 
 }
+
+::ng-deep.autocomplete-container .suggestions-container ul li a{
+  padding: 11px 15px !important;
+}
+::ng-deep.ng-autocomplete{
+  height: 144px !important;
+}
+
 
 .validation{
   color: red;
@@ -398,16 +406,43 @@ hr{
     grid-template-columns: 1fr;
   }
   ::ng-deep.modal.show .terms{
-    position: absolute !important;
-    left: 50% !important;
-    transform: translate(-50%, 100%) !important;
-    width: 350px !important;
+    //position: absolute !important;
+    //left: 50% !important;
+    //transform: translate(-50%, 100%) !important;
+    //width: 350px !important;
     box-shadow: 2px 3px 40px 2px rgba(84,84,84,0.75) !important;
     -webkit-box-shadow: 2px 3px 40px 2px rgba(84,84,84,0.75) !important;
     -moz-box-shadow: 2px 3px 40px 2px rgba(84,84,84,0.75) !important;
+  }
+  ::ng-deep.modal.show .modal-dialog {
+    max-width: 100vw;
+    margin: 0;
+    height: 100vh;
+  }
+  ::ng-deep.modal-content{
+    height: 100%;
+    app-modal{
+      height: 100%;
+    }
+  }
+  .profile_modal{
+    height: 100%;
+  }
+  .close_modal {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
   }
 }
 
 ::ng-deep.modal{
   background: #00000050 !important;
+}
+
+.input_item {
+  outline: none;
+}
+.input_item:focus{
+  outline: none;
+  //border: 1px solid #E9E9E9;
 }

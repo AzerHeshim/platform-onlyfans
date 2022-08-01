@@ -34,12 +34,16 @@ export class ModalComponent implements OnInit {
   year: string = '';
   day: string = '';
   month: string = '';
+  username: string = '';
+  email: string = '';
   isLegal : boolean = false;
-  isLegitMonth : boolean = false;
+  isLegitMonth : boolean = true;
   agreed : boolean = false;
   bsModalRef?: BsModalRef;
+  modalRef?: BsModalRef;
   fieldAlreadyExists: boolean = false;
   passwordDontMatch: boolean = false;
+  invalidId: boolean = false;
   constructor( public modalService: BsModalService,private fb: FormBuilder,private appService: AppService) {
 
 
@@ -72,7 +76,78 @@ export class ModalComponent implements OnInit {
       this.isLegal = moment().year() - Number(this.year) >= 18;
   }
   checkDaysInmonth(){
-    this.isLegitMonth = moment(`${this.day}-${this.month}-${this.year}`, 'DD-MM-YYYY').isValid();
+      this.isLegitMonth = moment(`${this.day}-${this.month}-${this.year}`, 'DD-MM-YYYY').isValid();
+  }
+
+  checkDays(){
+    this.validateDayBorder()
+  }
+  checkMonths(){
+    this.validateMonthBorder()
+  }
+  checkYears(){
+    this.validateYearBorder()
+  }
+  checkPasswordVal(){
+    this.validatePasswordBorder()
+  }
+  validateDayBorder(){
+    if((this.day)?.toString().length === 2){
+      if(Number(this.day) > 31 || !this.isLegitMonth){
+        return 'validate_input'
+      } else {
+        return ''
+      }
+    } else {
+      return ''
+    }
+  }
+  validateMonthBorder(){
+    if((this.month)?.toString().length === 2){
+      if(Number(this.month) > 12 || !this.isLegitMonth) {
+        return 'validate_input'
+      } else {
+        return ''
+      }
+    } else {
+      return ''
+    }
+  }
+  validateYearBorder(){
+    if((this.year)?.toString().length === 4){
+      if(!this.isLegal ){
+        return 'validate_input'
+      } else {
+        return ''
+      }
+    } else {
+      return ''
+    }
+  }
+  validatePasswordBorder(){
+    if(this.password.length > 4){
+      if( !this.hasNumber(this.password)){
+        return 'validate_input'
+      } else {
+        return ''
+      }
+    } else {
+      return ''
+    }
+  }
+  checkUSername(){
+    this.validateUsernameBorder()
+  }
+  validateUsernameBorder(){
+    if(this.username.length > 3){
+      if(/^[A-Za-z0-9]+$/.test(this.username) ){
+        return ''
+      } else {
+        return 'validate_input'
+      }
+    } else {
+      return ''
+    }
   }
   setDOB(){
     this.registrationForm.value.DOB = this.registrationForm.value.year + '-' + this.registrationForm.value.month + '-' + this.registrationForm.value.day
@@ -82,6 +157,13 @@ export class ModalComponent implements OnInit {
   }
   hasNumber(password? :any) {
     return /\d/.test(password);
+  }
+  checkPasswordNumber(){
+    if (this.password.length >1 ){
+      return this.hasNumber(this.password)
+    } else {
+      return
+    }
   }
   hide(){
     this.modalService?.hide()
@@ -141,6 +223,8 @@ export class ModalComponent implements OnInit {
       this.usernameValidation = error1.error.Error.message;
       if(error1.error.Error.code === 105){
         this.passwordDontMatch = true
+      }else if(error1.error.Error.code === 108){
+        this.invalidId = true
       }
     });
   }
@@ -183,7 +267,7 @@ export class ModalComponent implements OnInit {
     });
   }
   openTerms() {
-    this.bsModalRef = this.modalService.show(TermsComponent,  Object.assign({}, { class: 'modal-sm terms' }));
+    this.bsModalRef = this.modalService.show(TermsComponent,  Object.assign({}, { class: 'modal-lg terms' }));
     // @ts-ignore
     this.bsModalRef.onHidden.subscribe( res => {
       console.log('');
@@ -191,14 +275,14 @@ export class ModalComponent implements OnInit {
     this.bsModalRef.content.closeBtnName = 'Close';
   }
   openPrivacy(){
-    this.bsModalRef = this.modalService.show(PrivacyComponent,  Object.assign({}, { class: 'modal-sm terms' }));
+    this.modalRef = this.modalService.show(PrivacyComponent,  Object.assign({}, { class: 'modal-lg terms' }));
     // @ts-ignore
-    this.bsModalRef.onHidden.subscribe( res => {
+    this.modalRef.onHidden.subscribe( res => {
       console.log('');
     })
-    this.bsModalRef.content.closeBtnName = 'Close';
+    this.modalRef.content.closeBtnName = 'Close';
   }
   agree(){
-      this.agreed = true
+      this.agreed = !this.agreed
   }
 }
