@@ -69,6 +69,7 @@ export class ModalComponent implements OnInit {
         Validators.maxLength(4)]],
       DOB: [''],
       email: ['', [Validators.required, Validators.email]],
+      _id: [''],
     });
   }
 
@@ -244,12 +245,16 @@ export class ModalComponent implements OnInit {
           params.looking_for = 'male'
 
         }
+        params._id = this.userId;
         params.DOB = this.registrationForm.value.year + '-' + this.registrationForm.value.month + '-' + this.registrationForm.value.day
         delete params.month;
         delete params.day;
         delete params.year;
         this.appService.registerNext({...params,site_key: 'no01' },this.userId).subscribe(response => {
-          this.success =true
+          this.success =true;
+          setTimeout(()=>{
+            window.location.href = 'https://temptingcrush.com/discovery';
+          }, 500);
         }, error => {
           this.errorMessage = error.error.Error.message
           this.error = true;
