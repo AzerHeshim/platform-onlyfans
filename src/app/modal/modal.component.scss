@@ -389,15 +389,33 @@ hr{
   transition: all 0.3s ease;
 }
 
-
+.mobile_benefits{
+  display: none;
+}
 
 @keyframes check {
   50% {
     transform: scale(1.2);
   }
 }
+.desktop_benefits{
+  display: initial;
+}
 
 @media  (max-width: 768px) {
+  .desktop_benefits{
+    display: none;
+  }
+  .mobile_benefits{
+    display: flex ;
+    p{
+      font-size: 12px;
+      font-weight: bolder;
+    }
+  }
+  .profile_brief_info{
+    min-height: 256px;
+  }
   .modal_content{
     grid-template-columns: 1fr;
   }
