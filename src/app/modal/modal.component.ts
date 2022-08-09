@@ -19,7 +19,7 @@ export class ModalComponent implements OnInit {
   activeStepIndex: any = 0;
   addressAdded= true;
   step: any | null;
-  selectedCity: string | undefined;
+  selectedCity?: string;
   userId: any;
   cities = [];
   success: boolean = false;
@@ -44,6 +44,8 @@ export class ModalComponent implements OnInit {
   fieldAlreadyExists: boolean = false;
   passwordDontMatch: boolean = false;
   invalidId: boolean = false;
+  // selected?: string;
+  noResult = false;
   constructor( public modalService: BsModalService,private fb: FormBuilder,private appService: AppService) {
 
 
@@ -72,7 +74,9 @@ export class ModalComponent implements OnInit {
       _id: [''],
     });
   }
-
+  typeaheadNoResults(event: boolean): void {
+    this.noResult = event;
+  }
   ageDIff(){
       this.isLegal = moment().year() - Number(this.year) >= 18;
   }

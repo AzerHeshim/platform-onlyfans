@@ -20,6 +20,7 @@ import {FourDigitDecimaNumberDirective} from './directives/four-digit-handling.d
 import {AutocompleteLibModule} from "angular-ng-autocomplete";
 import { TermsComponent } from './terms/terms.component';
 import { PrivacyComponent } from './privacy/privacy.component';
+import {TypeaheadModule} from "ngx-bootstrap/typeahead";
 
 
 @Injectable({providedIn: 'root'})
@@ -43,26 +44,27 @@ export function HttpLoaderFactory(httpClient: HttpClientTrans) {
     TermsComponent,
     PrivacyComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ModalModule.forRoot(),
-    CdkStepperModule,
-    NgStepperModule,
-    AutocompleteLibModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClientTrans]
-      }
-    }),
-    ReactiveFormsModule,
-    AlertModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ModalModule.forRoot(),
+        CdkStepperModule,
+        NgStepperModule,
+        AutocompleteLibModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClientTrans]
+            }
+        }),
+        ReactiveFormsModule,
+        AlertModule,
+        TypeaheadModule
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

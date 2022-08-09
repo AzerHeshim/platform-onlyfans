@@ -103,29 +103,43 @@
           </ng-template>
           <div class="step_four">
               <p class="step_header">{{ 'dialog.location' | translate }}</p>
-            <div class="ng-autocomplete">
-              <ng-autocomplete
-                [ngClass]="{ validate_input: registrationForm.get('location')?.invalid && (registrationForm.get('location')?.dirty || registrationForm.get('location')?.touched)}"
-                [(ngModel)]="selectedCity"
-                formControlName="location"
-                [data]="cities"
-                [searchKeyword]="keyword"
-                placeholder="{{ 'dialog.locationPLaceholder' | translate }}"
-                (selected)='getselectedAdress(selectedCity)'
-                (inputChanged)='addressAdded = true;getLocations($event)'
-                [itemTemplate]="itemTemplate"
-                [notFoundTemplate]="notFoundTemplate">
-              </ng-autocomplete>
 
-              <ng-template #itemTemplate let-city>
-                <a [innerHTML]="city"></a>
-              </ng-template>
 
-              <ng-template #notFoundTemplate let-notFound>
-<!--                <div [innerHTML]="notFound"></div>-->
-                <p>{{ 'dialog.cityNotFound' | translate }}</p>
-              </ng-template>
-            </div>
+            <input [(ngModel)]="selectedCity"
+                   [typeahead]="cities"
+                   class="input_item"
+                   type="search"
+                   (typeaheadOnSelect)="getselectedAdress(selectedCity)"
+                   (typeaheadNoResults)="typeaheadNoResults($event)"
+                   formControlName="location"
+                   [typeaheadWaitMs]="500"
+                   placeholder="{{ 'dialog.locationPLaceholder' | translate }}"
+                   (typeaheadLoading)='addressAdded = true;getLocations($event)'
+            >
+            <div class="alert alert-danger" *ngIf="noResult">{{ 'dialog.cityNotFound' | translate }}</div>
+<!--            <div class="ng-autocomplete">-->
+<!--              <ng-autocomplete-->
+<!--                [ngClass]="{ validate_input: registrationForm.get('location')?.invalid && (registrationForm.get('location')?.dirty || registrationForm.get('location')?.touched)}"-->
+<!--                [(ngModel)]="selectedCity"-->
+<!--                formControlName="location"-->
+<!--                [data]="cities"-->
+<!--                [searchKeyword]="keyword"-->
+<!--                placeholder="{{ 'dialog.locationPLaceholder' | translate }}"-->
+<!--                (selected)='getselectedAdress(selectedCity)'-->
+<!--                (inputChanged)='addressAdded = true;getLocations($event)'-->
+<!--                [itemTemplate]="itemTemplate"-->
+<!--                [notFoundTemplate]="notFoundTemplate">-->
+<!--              </ng-autocomplete>-->
+
+<!--              <ng-template #itemTemplate let-city>-->
+<!--                <a [innerHTML]="city"></a>-->
+<!--              </ng-template>-->
+
+<!--              <ng-template #notFoundTemplate let-notFound>-->
+<!--&lt;!&ndash;                <div [innerHTML]="notFound"></div>&ndash;&gt;-->
+<!--                <p>{{ 'dialog.cityNotFound' | translate }}</p>-->
+<!--              </ng-template>-->
+<!--            </div>-->
 
 
             <div class="validate" *ngIf="registrationForm.get('location')?.invalid && (registrationForm.get('location')?.dirty || registrationForm.get('location')?.touched)">

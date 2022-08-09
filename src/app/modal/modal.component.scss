@@ -6,20 +6,7 @@
   overflow: hidden;
 }
 
-::ng-deep.modal.show .terms{
-  //position: absolute !important;
-  //left: 50% !important;
-  //transform: translate(-50%, 100%) !important;
-  //width: 600px !important;
-  //box-shadow: 2px 0px 13px 2px rgb(84 84 84 / 47%) !important;
-  //-webkit-box-shadow: 2px 0px 13px 2px rgb(84 84 84 / 47%) !important;
-  //-moz-box-shadow: 2px 0px 13px 2px rgb(84 84 84 / 47%) !important;
-  //border-radius: 8px !important;
-}
 
-//::ng-deep ng-stepper{
-//  overflow: visible !important;
-//}
 .profile_modal{
   padding: 16px;
 }
@@ -36,6 +23,15 @@
   grid-template-columns: 1fr 1fr;
   justify-content: space-between;
   gap: 20px;
+}
+::ng-deep ng-stepper{
+  overflow: visible !important;
+}
+::ng-deep.dropdown-menu{
+  min-width: 100%;
+}
+::ng-deep.dropdown-item{
+  padding: 8px 16px;
 }
 
 .profile_brief_info, .profile_sub_stepper{
