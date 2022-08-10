@@ -402,6 +402,10 @@ hr{
   display: initial;
 }
 
+input[type=search]{
+  border-radius: 4px;
+}
+
 @media  (max-width: 768px) {
   .desktop_benefits{
     display: none;
