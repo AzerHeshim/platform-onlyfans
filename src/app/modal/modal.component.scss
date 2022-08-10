@@ -42,7 +42,7 @@
 }
 
 .profile_sm_cover{
-  height: 100px;
+  height: 80px;
   width: 100%;
   background: url("../../assets/images/profile_coverjpg.jpg");
   background-size: cover;
@@ -414,7 +414,10 @@ hr{
     }
   }
   .profile_brief_info{
-    min-height: 256px;
+    min-height: 220px;
+  }
+  .profile_sub_stepper{
+    min-height: 250px;
   }
   .modal_content{
     grid-template-columns: 1fr;
