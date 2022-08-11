@@ -222,6 +222,15 @@
           </ng-template>
           <p class="step_header"> {{ 'dialog.email' | translate }}</p>
           <input [ngClass]="{ validate_input: registrationForm.get('email')?.invalid && this.email.length > 8}" type="email" class="input_item" placeholder="Your Email" formControlName="email" [(ngModel)]="email">
+          <alert type="danger" *ngIf="fieldAlreadyExists" >
+            {{ 'dialog.fieldAlreadyExists' | translate }}
+          </alert>
+          <alert type="danger" *ngIf="provideValidEmail" >
+            {{ 'dialog.emailValidation' | translate }}
+          </alert>
+          <alert type="success" *ngIf="success" [dismissOnTimeout]="3000">
+            {{ 'dialog.fieldAlreadyExists' | translate }}
+          </alert>
           <div class="validate" *ngIf="registrationForm.get('email')?.invalid && (registrationForm.get('email')?.dirty || registrationForm.get('email')?.touched)">
             <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">  {{ 'dialog.emailValidation' | translate }}
           </div>
@@ -255,10 +264,5 @@
   <hr>
   <button class="close_modal" (click)="hide()">{{ 'dialog.close' | translate }}</button>
 </div>
-<alert type="success" *ngIf="success" [dismissOnTimeout]="3000">
-  {{ 'dialog.fieldAlreadyExists' | translate }}
-</alert>
 
-<alert type="danger" *ngIf="fieldAlreadyExists" >
-  {{ 'dialog.fieldAlreadyExists' | translate }}
-</alert>
+

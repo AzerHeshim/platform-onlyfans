@@ -42,6 +42,7 @@ export class ModalComponent implements OnInit {
   bsModalRef?: BsModalRef;
   modalRef?: BsModalRef;
   fieldAlreadyExists: boolean = false;
+  provideValidEmail: boolean = false;
   passwordDontMatch: boolean = false;
   invalidId: boolean = false;
   accessToken : string = '';
@@ -271,6 +272,8 @@ export class ModalComponent implements OnInit {
           this.error = true;
           if(error.error.Error.code === 100){
             this.fieldAlreadyExists = true
+          }else if ( error.error.Error.code === 106){
+            this.provideValidEmail = true
           }
         })
       }
