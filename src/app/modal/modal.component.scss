@@ -445,6 +445,7 @@ input[type=search]{
     margin: 0;
     height: 100vh;
     position: fixed;
+    z-index: 100000;
   }
   ::ng-deep.modal-content{
     height: 100%;
