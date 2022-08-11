@@ -44,6 +44,7 @@ export class ModalComponent implements OnInit {
   fieldAlreadyExists: boolean = false;
   passwordDontMatch: boolean = false;
   invalidId: boolean = false;
+  accessToken : string = '';
   // selected?: string;
   noResult = false;
   constructor( public modalService: BsModalService,private fb: FormBuilder,private appService: AppService) {
@@ -254,10 +255,16 @@ export class ModalComponent implements OnInit {
         delete params.month;
         delete params.day;
         delete params.year;
+        delete params.username;
         this.appService.registerNext({...params,site_key: 'no01' },this.userId).subscribe(response => {
           this.success =true;
           setTimeout(()=>{
-            window.location.href = 'https://temptingcrush.com/discovery';
+            this.appService.registerSession({ password: this.registrationForm.value.password,email: this.registrationForm.value.email, site_key: 'no01'}).subscribe(response => {
+              console.log(response);
+              this.accessToken = response.Data.access_token;
+              localStorage.setItem('access_token', this.accessToken);
+              window.location.href = 'https://temptingcrush.com/discovery'
+            })
           }, 500);
         }, error => {
           this.errorMessage = error.error.Error.message

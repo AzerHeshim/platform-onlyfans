@@ -406,6 +406,11 @@ input[type=search]{
   border-radius: 4px;
 }
 
+::ng-deep.stepper-body{
+  margin: 10px 0 !important;
+  padding: 10px !important;
+}
+
 @media  (max-width: 768px) {
   .desktop_benefits{
     display: none;
@@ -421,7 +426,7 @@ input[type=search]{
     min-height: 220px;
   }
   .profile_sub_stepper{
-    min-height: 250px;
+    min-height: 220px;
   }
   .modal_content{
     grid-template-columns: 1fr;
