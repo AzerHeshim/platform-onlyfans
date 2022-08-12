@@ -432,10 +432,6 @@ input[type=search]{
     grid-template-columns: 1fr;
   }
   ::ng-deep.modal.show .terms{
-    //position: absolute !important;
-    //left: 50% !important;
-    //transform: translate(-50%, 100%) !important;
-    //width: 350px !important;
     box-shadow: 2px 3px 40px 2px rgba(84,84,84,0.75) !important;
     -webkit-box-shadow: 2px 3px 40px 2px rgba(84,84,84,0.75) !important;
     -moz-box-shadow: 2px 3px 40px 2px rgba(84,84,84,0.75) !important;
@@ -459,15 +455,12 @@ input[type=search]{
   .profile_modal{
     height: 100%;
   }
-  //.close_modal {
-  //  position: absolute;
-  //  bottom: 20px;
-  //  right: 20px;
-  //}
 }
 
 ::ng-deep.modal{
   background: #00000050 !important;
+  overflow-y: hidden !important;
+  position: fixed !important;
 }
 
 .input_item {
