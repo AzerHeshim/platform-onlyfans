@@ -17,7 +17,6 @@ import {AuthInterceptor} from "./interceptors/auth.interceptor";
 import {AlertModule} from "ngx-bootstrap/alert";
 import { TwoDigitDecimaNumberDirective} from './directives/two-digit-handling.directive';
 import {FourDigitDecimaNumberDirective} from './directives/four-digit-handling.directive';
-import {AutocompleteLibModule} from "angular-ng-autocomplete";
 import { TermsComponent } from './terms/terms.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import {TypeaheadModule} from "ngx-bootstrap/typeahead";
@@ -50,7 +49,6 @@ export function HttpLoaderFactory(httpClient: HttpClientTrans) {
         ModalModule.forRoot(),
         CdkStepperModule,
         NgStepperModule,
-        AutocompleteLibModule,
         FormsModule,
         BrowserAnimationsModule,
         HttpClientModule,
