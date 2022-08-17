@@ -412,6 +412,14 @@ input[type=search]{
 }
 
 @media  (max-width: 768px) {
+  ::ng-deep.modal{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
   .desktop_benefits{
     display: none;
   }
