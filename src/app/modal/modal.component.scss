@@ -412,6 +412,15 @@ input[type=search]{
 }
 
 @media  (max-width: 768px) {
+  ::ng-deep.modal-backdrop{
+    overflow: hidden !important;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
   ::ng-deep.modal{
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -465,9 +474,7 @@ input[type=search]{
     height: 100%;
   }
 }
-::ng-deep.modal-backdrop{
-  overflow: hidden !important;
-}
+
 ::ng-deep.modal{
   background: #00000050 !important;
   overflow-y: hidden !important;
