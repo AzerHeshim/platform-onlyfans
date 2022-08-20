@@ -38,7 +38,7 @@
       <ng-stepper #cdkStepper [linear]="true" [selectedIndex]="activeStepIndex">
         <cdk-step #activeStepIndex0  [optional]="true">
           <ng-template cdkStepLabel>
-            <div class="step-bullet">1</div>
+            <div class="step-bullet" [id]="activeStepIndex === 6 ? 'non_cursor' : ''">1</div>
           </ng-template>
           <div class="step_one">
             <p class="step_header">{{ 'dialog.stepAdult' | translate }}</p>
@@ -50,7 +50,7 @@
 
         <cdk-step  [optional]="true">
           <ng-template cdkStepLabel>
-            <div class="step-bullet">2</div>
+            <div class="step-bullet" [id]="activeStepIndex === 6 ? 'non_cursor' : ''">2</div>
           </ng-template>
           <div class="step_two">
             <p class="step_header">{{ 'dialog.gender' | translate }} </p>
@@ -70,7 +70,7 @@
 
         <cdk-step [optional]="true">
           <ng-template cdkStepLabel>
-            <div class="step-bullet">3</div>
+            <div class="step-bullet" [id]="activeStepIndex === 6 ? 'non_cursor' : ''">3</div>
           </ng-template>
           <div class="step_three">
             <p class="step_header">{{ 'dialog.birthday' | translate }}</p>
@@ -102,7 +102,7 @@
 
         <cdk-step [optional]="true">
           <ng-template cdkStepLabel>
-            <div class="step-bullet">4</div>
+            <div class="step-bullet" [id]="activeStepIndex === 6 ? 'non_cursor' : ''">4</div>
 
           </ng-template>
           <div class="step_four">
@@ -120,7 +120,12 @@
                    placeholder="{{ 'dialog.locationPLaceholder' | translate }}"
                    (typeaheadLoading)='addressAdded = true;getLocations($event)'
             >
-            <div class="alert alert-danger" *ngIf="noResult">{{ 'dialog.cityNotFound' | translate }}</div>
+
+              <div class="validate" *ngIf="noResult">
+                <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">
+                {{ 'dialog.cityNotFound' | translate }}
+              </div>
+
             <div class="validate" *ngIf="registrationForm.get('location')?.invalid && (registrationForm.get('location')?.dirty || registrationForm.get('location')?.touched)">
               <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">  {{ 'dialog.locationValidation' | translate }}
             </div>
@@ -137,11 +142,11 @@
         </cdk-step>
         <cdk-step [optional]="true">
           <ng-template cdkStepLabel>
-            <div class="step-bullet">5</div>
+            <div class="step-bullet" [id]="activeStepIndex === 6 ? 'non_cursor' : ''">5</div>
           </ng-template>
           <div class="step_five">
             <p class="step_header">{{ 'dialog.username' | translate }}</p>
-            <input  [ngClass]="validateUsernameBorder()" type="text" class="input_item" placeholder="Your username" [(ngModel)]="username" formControlName="username" pattern="^[a-zA-Z0-9]+$" (ngModelChange)="checkUSername()">
+            <input  [ngClass]="validateUsernameBorder()" type="text" class="input_item" placeholder="Your username" [(ngModel)]="username" formControlName="username" pattern="^[a-zA-Z0-9]+$" (ngModelChange)="checkUSername()" appUsernameLentgh>
             <div class="validate" *ngIf="registrationForm.get('username')?.invalid && (registrationForm.get('username')?.dirty )">
               <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">   {{ 'dialog.usernameValidation' | translate }}
             </div>
@@ -164,7 +169,7 @@
         </cdk-step>
         <cdk-step [optional]="true">
           <ng-template cdkStepLabel>
-            <div class="step-bullet">6</div>
+            <div class="step-bullet" [id]="activeStepIndex === 6 ? 'non_cursor' : ''" >6</div>
           </ng-template>
 
           <p class="step_header"> {{ 'dialog.password' | translate }}</p>
@@ -197,14 +202,14 @@
           </ng-template>
           <p class="step_header"> {{ 'dialog.email' | translate }}</p>
           <input [ngClass]="{ validate_input: registrationForm.get('email')?.invalid && this.email.length > 8}" type="email" class="input_item" placeholder="Your Email" formControlName="email" [(ngModel)]="email">
-          <alert type="danger" *ngIf="fieldAlreadyExists" >
+            <div class="validate" *ngIf="fieldAlreadyExists" >
             {{ 'dialog.fieldAlreadyExists' | translate }}
-          </alert>
-          <alert type="danger" *ngIf="provideValidEmail" >
-            {{ 'dialog.emailValidation' | translate }}
-          </alert>
+            </div>
+            <div class="validate" *ngIf="provideValidEmail">
+              <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">    {{ 'dialog.emailValidation' | translate }}
+            </div>
           <alert type="success" *ngIf="success" [dismissOnTimeout]="3000">
-            {{ 'dialog.fieldAlreadyExists' | translate }}
+            {{ 'dialog.success' | translate }}
           </alert>
           <div class="validate" *ngIf="registrationForm.get('email')?.invalid && (registrationForm.get('email')?.dirty || registrationForm.get('email')?.touched)">
             <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">  {{ 'dialog.emailValidation' | translate }}
@@ -222,11 +227,9 @@
             <span>{{ 'dialog.agree' | translate }} <a class="open_terms" (click)="openTerms()">{{ 'dialog.terms' | translate }} </a> {{ 'dialog.and' | translate }} <a class="open_terms" (click)="openPrivacy()"> {{ 'dialog.privacy' | translate }}</a>.</span>
 
           </div>
-          <div class="gender_options">
-            <button class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)">
-              <p>{{ 'dialog.back' | translate }}</p>
-            </button>
-            <button class="gender_option_item stepper_generic" aria-label="Close"  (click)="onSubmit(registrationForm)" [ngClass]="{ disabled_button: (registrationForm.get('email')?.invalid) || !agreed }"
+          <div class="gender_options d-block">
+
+            <button class="gender_option_item stepper_generic w-100" aria-label="Close"  (click)="onSubmit(registrationForm)" [ngClass]="{ disabled_button: (registrationForm.get('email')?.invalid) || !agreed }"
                     [disabled]="registrationForm.get('email')?.invalid || !agreed ">
               <p> {{ 'dialog.finish' | translate }}</p>
             </button>

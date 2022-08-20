@@ -99,6 +99,18 @@
   background: #C3DAF6 !important;
 }
 
+
+#non_cursor{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: none !important;
+  pointer-events: none !important;
+}
+
 ::ng-deep.stepper-header .steps .step .step-bullet {
   position: relative;
   display: inline-flex;
@@ -421,6 +433,7 @@ input[type=search]{
     -ms-user-select: none;
     user-select: none;
     height: 100vh;
+    z-index: 0;
   }
   ::ng-deep.modal{
     -webkit-touch-callout: none;

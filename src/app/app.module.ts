@@ -20,6 +20,7 @@ import {FourDigitDecimaNumberDirective} from './directives/four-digit-handling.d
 import { TermsComponent } from './terms/terms.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import {TypeaheadModule} from "ngx-bootstrap/typeahead";
+import { UsernameMaxLengthDirective } from './directives/username-max-length.directive';
 
 
 @Injectable({providedIn: 'root'})
@@ -41,7 +42,9 @@ export function HttpLoaderFactory(httpClient: HttpClientTrans) {
     TwoDigitDecimaNumberDirective,
     FourDigitDecimaNumberDirective,
     TermsComponent,
-    PrivacyComponent
+    PrivacyComponent,
+    UsernameMaxLengthDirective,
+    UsernameMaxLengthDirective
   ],
     imports: [
         BrowserModule,
