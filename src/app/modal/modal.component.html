@@ -1,5 +1,10 @@
 <div class="profile_modal" bsModal #modal="bs-modal">
+  <div class="d-flex align-items-center justify-content-between mb-3">
   <h2 class="modal_head">{{ 'dialog.subscribe' | translate }}</h2>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef?.hide()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+  </div>
   <div class="modal_content">
     <div class="profile_brief_info">
       <div class="profile_sm_cover">
