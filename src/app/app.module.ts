@@ -44,7 +44,6 @@ export function HttpLoaderFactory(httpClient: HttpClientTrans) {
     TermsComponent,
     PrivacyComponent,
     UsernameMaxLengthDirective,
-    UsernameMaxLengthDirective
   ],
     imports: [
         BrowserModule,

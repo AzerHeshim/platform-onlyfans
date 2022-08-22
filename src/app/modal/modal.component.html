@@ -146,7 +146,7 @@
           </ng-template>
           <div class="step_five">
             <p class="step_header">{{ 'dialog.username' | translate }}</p>
-            <input  [ngClass]="validateUsernameBorder()" type="text" class="input_item" placeholder="Your username" [(ngModel)]="username" formControlName="username" pattern="^[a-zA-Z0-9]+$" (ngModelChange)="checkUSername()" appUsernameLentgh>
+            <input maxlength="12" [ngClass]="validateUsernameBorder()"  type="text" class="input_item" placeholder="Your username" [(ngModel)]="username" formControlName="username" (ngModelChange)="checkUSername()" >
             <div class="validate" *ngIf="registrationForm.get('username')?.invalid && (registrationForm.get('username')?.dirty )">
               <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">   {{ 'dialog.usernameValidation' | translate }}
             </div>
