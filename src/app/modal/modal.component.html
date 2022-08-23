@@ -178,7 +178,7 @@
           </ng-template>
 
           <p class="step_header"> {{ 'dialog.password' | translate }}</p>
-          <input  [ngClass]="{ validate_input: validatePasswordBorder()}" [(ngModel)]="password" type="password" class="input_item" placeholder="Your password" formControlName="password" (ngModelChange)="checkPasswordVal()">
+          <input maxlength="16" [ngClass]="{ validate_input: validatePasswordBorder()}" [(ngModel)]="password" type="password" class="input_item" placeholder="Your password" formControlName="password" (ngModelChange)="checkPasswordVal()">
           <div class="validate" *ngIf="registrationForm.get('password')?.invalid && (registrationForm.get('password')?.dirty || registrationForm.get('password')?.touched) && !hasNumber(password)">
             <img src="assets/icons/ant-design_exclamation-circle-outlined.svg" alt="">  {{ 'dialog.passwordValidation' | translate }}
           </div>
