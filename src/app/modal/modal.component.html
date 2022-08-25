@@ -138,8 +138,8 @@
               <button class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)" >
                 <p>{{ 'dialog.back' | translate }}</p>
               </button>
-              <button class="gender_option_item stepper_generic" [ngClass]="{ disabled_button: !addressAdded || registrationForm.get('location')?.value.length < 6}"
-                      [disabled]="!addressAdded || registrationForm.get('location')?.value.length < 6" (click)="next(cdkStepper)" >
+              <button class="gender_option_item stepper_generic" [ngClass]="{ disabled_button: !addressAdded || registrationForm.get('location')?.value.length < 4}"
+                      [disabled]="!addressAdded || registrationForm.get('location')?.value.length < 4" (click)="next(cdkStepper)" >
                 <p>{{ 'dialog.next' | translate }}</p>
               </button>
             </div>
