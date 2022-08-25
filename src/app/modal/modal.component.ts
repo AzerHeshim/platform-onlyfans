@@ -17,7 +17,7 @@ import {PrivacyComponent} from "../privacy/privacy.component";
 export class ModalComponent implements OnInit {
   keyword = 'name';
   activeStepIndex: any = 0;
-  addressAdded= true;
+  addressAdded= false;
   step: any | null;
   selectedCity?: string;
   userId: any;
@@ -48,6 +48,7 @@ export class ModalComponent implements OnInit {
   accessToken : string = '';
   // selected?: string;
   noResult = false;
+  public captchaResponse = "";
   constructor( public modalService: BsModalService,private fb: FormBuilder,private appService: AppService) {
 
 
@@ -235,7 +236,12 @@ export class ModalComponent implements OnInit {
       }
     });
   }
-
+  public resolved(captchaResponse: string): void {
+    const newResponse = captchaResponse
+      ? `${captchaResponse.substr(0, 7)}...${captchaResponse.substr(-7)}`
+      : captchaResponse;
+    this.captchaResponse += `${JSON.stringify(newResponse)}\n`;
+  }
 
   startRegister(form: FormGroup){
     this.appService.registerStart({ username: this.registrationForm.value.username,email: this.registrationForm.value.email, site_key: 'no01'}).subscribe(response => {

@@ -118,12 +118,12 @@
                    [typeahead]="cities"
                    class="input_item"
                    type="search"
-                   (typeaheadOnSelect)="getselectedAdress(selectedCity)"
+                   (typeaheadOnSelect)="getselectedAdress(selectedCity); addressAdded = true"
                    (typeaheadNoResults)="typeaheadNoResults($event)"
                    formControlName="location"
                    [typeaheadWaitMs]="800"
                    placeholder="{{ 'dialog.locationPLaceholder' | translate }}"
-                   (typeaheadLoading)='addressAdded = true;getLocations($event)'
+                   (typeaheadLoading)='getLocations($event)'
             >
 
               <div class="validate" *ngIf="noResult">
@@ -138,8 +138,8 @@
               <button class="gender_option_item stepper_generic stepper_back"  (click)="back(cdkStepper)" >
                 <p>{{ 'dialog.back' | translate }}</p>
               </button>
-              <button class="gender_option_item stepper_generic" [ngClass]="{ disabled_button: (registrationForm.get('location')?.invalid || registrationForm.get('location')?.invalid  || registrationForm.get('location')?.invalid)}"
-                      [disabled]="(registrationForm.get('location')?.invalid || registrationForm.get('location')?.invalid  || registrationForm.get('location')?.invalid)" (click)="next(cdkStepper)" >
+              <button class="gender_option_item stepper_generic" [ngClass]="{ disabled_button: !addressAdded || registrationForm.get('location')?.value.length < 10}"
+                      [disabled]="!addressAdded || registrationForm.get('location')?.value.length < 10" (click)="next(cdkStepper)" >
                 <p>{{ 'dialog.next' | translate }}</p>
               </button>
             </div>
@@ -234,10 +234,11 @@
           </div>
           <div class="gender_options d-block">
 
-            <button class="gender_option_item stepper_generic w-100" aria-label="Close"  (click)="onSubmit(registrationForm)" [ngClass]="{ disabled_button: (registrationForm.get('email')?.invalid) || !agreed }"
+            <button class="gender_option_item stepper_generic w-100" aria-label="Close"  (click)="onSubmit(registrationForm); captchaRef.execute()" [ngClass]="{ disabled_button: (registrationForm.get('email')?.invalid) || !agreed }"
                     [disabled]="registrationForm.get('email')?.invalid || !agreed ">
               <p> {{ 'dialog.finish' | translate }}</p>
             </button>
+            <re-captcha  #captchaRef="reCaptcha" size="invisible" (resolved)="resolved($event)" siteKey="6LfRM3QhAAAAAF-9myDhFuQIubKjHJNIA4d3sG3Y"></re-captcha>
           </div>
         </cdk-step>
       </ng-stepper>

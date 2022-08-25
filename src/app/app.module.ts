@@ -21,6 +21,8 @@ import { TermsComponent } from './terms/terms.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import {TypeaheadModule} from "ngx-bootstrap/typeahead";
 import { UsernameMaxLengthDirective } from './directives/username-max-length.directive';
+import {RecaptchaCommonModule} from "ng-recaptcha/lib/recaptcha-common.module";
+import {RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha";
 
 
 @Injectable({providedIn: 'root'})
@@ -45,26 +47,27 @@ export function HttpLoaderFactory(httpClient: HttpClientTrans) {
     PrivacyComponent,
     UsernameMaxLengthDirective,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ModalModule.forRoot(),
-        CdkStepperModule,
-        NgStepperModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClientTrans]
-            }
-        }),
-        ReactiveFormsModule,
-        AlertModule,
-        TypeaheadModule
-    ],
+  imports: [
+    RecaptchaModule,
+    BrowserModule,
+    AppRoutingModule,
+    ModalModule.forRoot(),
+    CdkStepperModule,
+    NgStepperModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClientTrans]
+      }
+    }),
+    ReactiveFormsModule,
+    AlertModule,
+    TypeaheadModule
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
