@@ -216,7 +216,7 @@ input::-webkit-inner-spin-button {
 
 [type=search]{
   outline-offset: -2px;
-  -webkit-appearance: textfield !important;
+  -webkit-appearance: none !important;
   border-radius: 0 !important;
   background: #fff !important;
 }
