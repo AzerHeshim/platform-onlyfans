@@ -214,6 +214,13 @@ input::-webkit-inner-spin-button {
   border-radius: 4px;
 }
 
+[type=search]{
+  outline-offset: -2px;
+  -webkit-appearance: textfield !important;
+  border-radius: 0 !important;
+  background: #fff !important;
+}
+
 .stepper_back{
   background: #AFAFAF;
 }
