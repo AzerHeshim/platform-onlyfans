@@ -270,7 +270,7 @@ export class ModalComponent implements OnInit {
               console.log(response);
               this.accessToken = response.Data.access_token;
               localStorage.setItem('access_token', this.accessToken);
-              window.location.href = 'https://temptingcrush.com/discovery'
+              window.location.href = 'https://temptingcrush.com/?token=' + this.accessToken;
             })
           }, 500);
         }, error => {
