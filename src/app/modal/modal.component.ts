@@ -74,7 +74,7 @@ export class ModalComponent implements OnInit {
         Validators.maxLength(4)]],
       DOB: [''],
       email: ['', [Validators.required, Validators.email]],
-      _id: [''],
+      _id: ['']
     });
   }
   typeaheadNoResults(event: boolean): void {
@@ -244,7 +244,7 @@ export class ModalComponent implements OnInit {
   }
 
   startRegister(form: FormGroup){
-    this.appService.registerStart({ username: this.registrationForm.value.username,email: this.registrationForm.value.email, site_key: 'no01'}).subscribe(response => {
+    this.appService.registerStart({ username: this.registrationForm.value.username,email: this.registrationForm.value.email, site_key: 'no01', recaptcha_token:'6LfaWcEhAAAAAHwQHm7ihT2jKaZqnGVuwvsAL8LK'}).subscribe(response => {
       if(response.Status == 'ok'){
         this.userId = response.Data;
         const params = {
