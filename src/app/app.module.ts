@@ -22,7 +22,8 @@ import { PrivacyComponent } from './privacy/privacy.component';
 import {TypeaheadModule} from "ngx-bootstrap/typeahead";
 import { UsernameMaxLengthDirective } from './directives/username-max-length.directive';
 import {RecaptchaCommonModule} from "ng-recaptcha/lib/recaptcha-common.module";
-import {RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha";
+import {RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings} from "ng-recaptcha";
+import {environment} from "../environments/environment";
 
 
 @Injectable({providedIn: 'root'})
@@ -50,6 +51,8 @@ export function HttpLoaderFactory(httpClient: HttpClientTrans) {
   imports: [
     RecaptchaModule,
     BrowserModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
     AppRoutingModule,
     ModalModule.forRoot(),
     CdkStepperModule,
@@ -73,6 +76,12 @@ export function HttpLoaderFactory(httpClient: HttpClientTrans) {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
+    },
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: environment.recaptcha.siteKey,
+      } as RecaptchaSettings,
     },
   ],
   bootstrap: [AppComponent]

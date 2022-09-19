@@ -15,6 +15,7 @@ import {PrivacyComponent} from "../privacy/privacy.component";
 
 
 export class ModalComponent implements OnInit {
+  token: string| '';
   keyword = 'name';
   activeStepIndex: any = 0;
   addressAdded= false;
@@ -50,6 +51,7 @@ export class ModalComponent implements OnInit {
   noResult = false;
   public captchaResponse = "";
   constructor( public modalService: BsModalService,private fb: FormBuilder,private appService: AppService) {
+    this.token = 'undefined';
 
 
 
@@ -236,15 +238,13 @@ export class ModalComponent implements OnInit {
       }
     });
   }
-  public resolved(captchaResponse: string): void {
-    const newResponse = captchaResponse
-      ? `${captchaResponse.substr(0, 7)}...${captchaResponse.substr(-7)}`
-      : captchaResponse;
-    this.captchaResponse += `${JSON.stringify(newResponse)}\n`;
-  }
 
+  public resolved(captchaResponse: string): void {
+    this.token = captchaResponse.toString();
+    localStorage.setItem('key', this.token);
+  }
   startRegister(form: FormGroup){
-    this.appService.registerStart({ username: this.registrationForm.value.username,email: this.registrationForm.value.email, site_key: 'no01', recaptcha_token:'6LfaWcEhAAAAAHwQHm7ihT2jKaZqnGVuwvsAL8LK'}).subscribe(response => {
+    this.appService.registerStart({ username: this.registrationForm.value.username,email: this.registrationForm.value.email, site_key: 'no01', recaptcha_token: localStorage.getItem('key')}).subscribe(response => {
       if(response.Status == 'ok'){
         this.userId = response.Data;
         const params = {
@@ -267,10 +267,9 @@ export class ModalComponent implements OnInit {
           this.success =true;
           setTimeout(()=>{
             this.appService.registerSession({ password: this.registrationForm.value.password,email: this.registrationForm.value.email, site_key: 'no01'}).subscribe(response => {
-              console.log(response);
               this.accessToken = response.Data.access_token;
               localStorage.setItem('access_token', this.accessToken);
-              window.location.href = 'https://temptingcrush.com/?token=' + this.accessToken;
+              // window.location.href = 'https://temptingcrush.com/?token=' + this.accessToken;
             })
           }, 500);
         }, error => {
