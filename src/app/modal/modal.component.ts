@@ -194,10 +194,7 @@ export class ModalComponent implements OnInit {
     }
   }
 
-  onSubmit(form: FormGroup) {
-    this.startRegister(form);
-    localStorage.setItem('activeStep', '0');
-  }
+
   getselectedAdress(selectedCity: string | undefined){
     this.selectedCity = selectedCity;
   }
@@ -240,10 +237,17 @@ export class ModalComponent implements OnInit {
   }
 
   public resolved(captchaResponse: string): void {
-    this.token = captchaResponse.toString();
-    localStorage.setItem('key', this.token);
+    localStorage.setItem('key', captchaResponse.toString());
+    console.log(this.token,localStorage.getItem('key') )
+  }
+  onSubmit(form: FormGroup) {
+    setTimeout(() => {
+      this.startRegister(form);
+      localStorage.setItem('activeStep', '0');
+    }, 1000);
   }
   startRegister(form: FormGroup){
+    console.log(localStorage.getItem('key'))
     this.appService.registerStart({ username: this.registrationForm.value.username,email: this.registrationForm.value.email, site_key: 'no01', recaptcha_token: localStorage.getItem('key')}).subscribe(response => {
       if(response.Status == 'ok'){
         this.userId = response.Data;
