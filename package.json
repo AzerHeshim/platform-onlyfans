@@ -26,7 +26,6 @@
     "moment": "^2.29.4",
     "ng-recaptcha": "^9.0.0",
     "ngx-bootstrap": "^8.0.0",
-    "ngx-captcha": "^9.0.1",
     "ngx-mask": "^13.1.15",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   mainUrl: 'https://iconnect247.net/api/v2',
   recaptcha: {
-    siteKey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
+    siteKey: '6LfaWcEhAAAAAHwQHm7ihT2jKaZqnGVuwvsAL8LK',
   },
 };
 
