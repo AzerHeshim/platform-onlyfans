@@ -1,10 +1,11 @@
-import {Component,  OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {FormBuilder,  FormGroup, Validators} from "@angular/forms";
 import {AppService} from "../services/app.service";
 import * as moment from 'moment';
 import {TermsComponent} from "../terms/terms.component";
 import {PrivacyComponent} from "../privacy/privacy.component";
+import {RecaptchaComponent} from "ng-recaptcha";
 
 
 @Component({
@@ -15,6 +16,7 @@ import {PrivacyComponent} from "../privacy/privacy.component";
 
 
 export class ModalComponent implements OnInit {
+  @ViewChild('captchaRef')  reCaptcha: RecaptchaComponent | undefined;
   token: string| '';
   keyword = 'name';
   activeStepIndex: any = 0;
@@ -251,6 +253,7 @@ export class ModalComponent implements OnInit {
     this.appService.registerStart({ username: this.registrationForm.value.username,email: this.registrationForm.value.email, site_key: 'no01', recaptcha_token: localStorage.getItem('key')}).subscribe(response => {
       if(response.Status == 'ok'){
         this.userId = response.Data;
+        this.reCaptcha?.reset()
         const params = {
           ...form.value
         };
@@ -287,12 +290,17 @@ export class ModalComponent implements OnInit {
         })
       }
     }, error1 => {
+      this.reCaptcha?.reset()
+      console.log( this.reCaptcha, 'dsaddsadsadsa')
       this.mailError = true;
       this.mailValidation = error1.error.Error.message;
       if(error1.error.Error.code === 100){
         this.fieldAlreadyExists = true
       }
     });
+    this.reCaptcha?.reset();
+    console.log( this.reCaptcha, 'dsaddsadsadsa')
+
   }
   openTerms() {
     this.bsModalRef = this.modalService.show(TermsComponent,  Object.assign({}, { class: 'modal-lg terms' }));
