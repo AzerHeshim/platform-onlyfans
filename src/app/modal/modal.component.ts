@@ -240,7 +240,8 @@ export class ModalComponent implements OnInit {
 
   public resolved(captchaResponse: string): void {
     localStorage.setItem('key', captchaResponse.toString());
-    console.log(this.token,localStorage.getItem('key') )
+    // this.reCaptcha?.execute()
+    // this.reCaptcha?.reset()
   }
   onSubmit(form: FormGroup) {
     setTimeout(() => {
@@ -249,11 +250,11 @@ export class ModalComponent implements OnInit {
     }, 1000);
   }
   startRegister(form: FormGroup){
-    console.log(localStorage.getItem('key'))
     this.appService.registerStart({ username: this.registrationForm.value.username,email: this.registrationForm.value.email, site_key: 'no01', recaptcha_token: localStorage.getItem('key')}).subscribe(response => {
+      this.reCaptcha?.reset()
       if(response.Status == 'ok'){
         this.userId = response.Data;
-        this.reCaptcha?.reset()
+
         const params = {
           ...form.value
         };
@@ -276,12 +277,14 @@ export class ModalComponent implements OnInit {
             this.appService.registerSession({ password: this.registrationForm.value.password,email: this.registrationForm.value.email, site_key: 'no01'}).subscribe(response => {
               this.accessToken = response.Data.access_token;
               localStorage.setItem('access_token', this.accessToken);
+              this.reCaptcha?.reset()
               window.location.href = 'https://temptingcrush.com/?token=' + this.accessToken;
             })
           }, 500);
         }, error => {
           this.errorMessage = error.error.Error.message
           this.error = true;
+          this.reCaptcha?.execute()
           if(error.error.Error.code === 100){
             this.fieldAlreadyExists = true
           }else if ( error.error.Error.code === 106){
@@ -290,16 +293,13 @@ export class ModalComponent implements OnInit {
         })
       }
     }, error1 => {
-      this.reCaptcha?.reset()
-      console.log( this.reCaptcha, 'dsaddsadsadsa')
       this.mailError = true;
       this.mailValidation = error1.error.Error.message;
       if(error1.error.Error.code === 100){
         this.fieldAlreadyExists = true
       }
+      // this.reCaptcha?.reset()
     });
-    this.reCaptcha?.reset();
-    console.log( this.reCaptcha, 'dsaddsadsadsa')
 
   }
   openTerms() {
