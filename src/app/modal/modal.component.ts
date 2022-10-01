@@ -239,11 +239,13 @@ export class ModalComponent implements OnInit {
   }
 
   public resolved(captchaResponse: string): void {
+    console.log(captchaResponse, 'TOKENNNNN')
     localStorage.setItem('key', captchaResponse.toString());
     // this.reCaptcha?.execute()
     // this.reCaptcha?.reset()
   }
   onSubmit(form: FormGroup) {
+    this.reCaptcha?.execute()
     setTimeout(() => {
       this.startRegister(form);
       localStorage.setItem('activeStep', '0');
@@ -273,6 +275,7 @@ export class ModalComponent implements OnInit {
         delete params.username;
         this.appService.registerNext({...params,site_key: 'no01' },this.userId).subscribe(response => {
           this.success =true;
+          console.log('SUCCESSSSS')
           setTimeout(()=>{
             this.appService.registerSession({ password: this.registrationForm.value.password,email: this.registrationForm.value.email, site_key: 'no01'}).subscribe(response => {
               this.accessToken = response.Data.access_token;
@@ -282,9 +285,11 @@ export class ModalComponent implements OnInit {
             })
           }, 500);
         }, error => {
+          console.log('ERROR NEXT')
           this.errorMessage = error.error.Error.message
           this.error = true;
-          this.reCaptcha?.execute()
+          // this.reCaptcha?.reset()
+          // this.reCaptcha?.execute()
           if(error.error.Error.code === 100){
             this.fieldAlreadyExists = true
           }else if ( error.error.Error.code === 106){
@@ -293,6 +298,7 @@ export class ModalComponent implements OnInit {
         })
       }
     }, error1 => {
+      console.log('ERROR START')
       this.mailError = true;
       this.mailValidation = error1.error.Error.message;
       if(error1.error.Error.code === 100){

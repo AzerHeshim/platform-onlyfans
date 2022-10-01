@@ -235,7 +235,7 @@
           <div class="gender_options d-block">
             <re-captcha [ngModelOptions]="{standalone: true}" size="invisible" id="recaptcha" #captchaRef="reCaptcha" [(ngModel)]="token"  (resolved)="resolved($event)"
             ></re-captcha>
-            <button type='submit' class="gender_option_item stepper_generic w-100" aria-label="Close"  (click)="captchaRef.execute();onSubmit(registrationForm); " [ngClass]="{ disabled_button: (registrationForm.get('email')?.invalid) || !agreed }"
+            <button type='submit' class="gender_option_item stepper_generic w-100" aria-label="Close"  (click)="onSubmit(registrationForm); " [ngClass]="{ disabled_button: (registrationForm.get('email')?.invalid) || !agreed }"
                     [disabled]="registrationForm.get('email')?.invalid || !agreed ">
               <p> {{ 'dialog.finish' | translate }}</p>
             </button>
